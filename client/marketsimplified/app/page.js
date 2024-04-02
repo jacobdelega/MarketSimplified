@@ -19,6 +19,8 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
+import {MarketVid} from '../components/ui/video'
+
 const solutions = [
   {
     name: 'Inbox',
@@ -206,11 +208,11 @@ export default function Homepage() {
               </div>
               <div className="relative py-16 px-6 sm:py-24 lg:py-32 lg:px-8">
                 <h1 className="text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                  <span className="block text-white">Effortless Influencer Marketing.</span>
-                  <span className="block text-indigo-200">Grow Together.</span>
+                  <span className="block text-white">Influencer Marketing</span>
+                  <span className="block text-indigo-200">the future of brand story telling</span>
                 </h1>
                 <p className="mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl">
-                Go Beyond Likes. Partner with Micro-Influencers & Leverage Their Influence for Mutual Growth & Income. 
+                  Don't get left behind, unlock the power of influencer marketing today               
                 </p>
                 <div className="mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center">
                   <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0">
@@ -327,11 +329,13 @@ export default function Homepage() {
               </div>
               <div className="mt-12 sm:mt-16 lg:mt-0">
                 <div className="-mr-48 pl-6 md:-mr-16 lg:relative lg:m-0 lg:h-full lg:px-0">
-                  <img
+                  {/* <img
                     className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
                     alt="Inbox user interface"
-                  />
+                  /> */}
+                  <MarketVid/>
+
                 </div>
               </div>
             </div>
@@ -367,11 +371,11 @@ export default function Homepage() {
               </div>
               <div className="mt-12 sm:mt-16 lg:col-start-1 lg:mt-0">
                 <div className="-ml-48 pr-6 md:-ml-16 lg:relative lg:m-0 lg:h-full lg:px-0">
-                  <img
+                  {/* <img
                     className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-2.jpg"
                     alt="Customer profile user interface"
-                  />
+                  /> */}
                 </div>
               </div>
             </div>

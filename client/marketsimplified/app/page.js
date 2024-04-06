@@ -65,7 +65,7 @@ const features = [
     },
     {
         name: "Streamlined Workflow",
-        description: "Our platform is designed with creators in mind. We make it simple to find brand deals, manage campaigns, and track your progress – all in one place. ",
+        description: "Our platform is designed with creators in mind. We make it simple to find brand deals, manage campaigns, and track your progress all in one place. ",
         icon: PencilSquareIcon,
     },
     {
@@ -75,12 +75,12 @@ const features = [
     },
     {
         name: "Connectivity",
-        description: "Invest in long-term success. Our platform fosters genuine connections between brands and influencers, leading to successful collaborations that deliver affordable lasting results.",
+        description: "Invest in long term success. Our platform fosters genuine connections between brands and influencers, leading to successful collaborations that deliver affordable lasting results.",
         icon: BanknotesIcon,
     },
     {
         name: "Campaign Managment",
-        description: "Our platform will offer a easy to use campaign manager that empowers you to handle everything from setup to execution. No need to worry about contracts, legal work, or payments – we take care of it all.",
+        description: "Our platform will offer a easy to use campaign manager that empowers you to handle everything from setup to execution. No need to worry about contracts, legal work, or payments we take care of it all.",
         icon: ChatBubbleLeftEllipsisIcon,
     },
     {
@@ -199,11 +199,11 @@ export default function Homepage() {
                     <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
                         <div className='relative shadow-xl sm:overflow-hidden sm:rounded-2xl'>
                             <div className='absolute inset-0'>
-                                <img
+                                {/* <img
                                     className='h-full w-full object-cover'
                                     src='https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100'
                                     alt='People working on laptops'
-                                />
+                                /> */}
                                 <div className='absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply' />
                             </div>
                             <div className='relative py-16 px-6 sm:py-24 lg:py-32 lg:px-8'>
@@ -211,7 +211,7 @@ export default function Homepage() {
                                     <span className='block text-white'>Influencer Marketing</span>
                                     <span className='block text-indigo-200'>the future of brand story telling</span>
                                 </h1>
-                                <p className='mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl'>Don't get left behind, unlock the power of influencer marketing today</p>
+                                <p className='mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl'>Dont get left behind unlock the power of influencer marketing today</p>
                                 <div className='mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center'>
                                     <div className='space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0'>
                                         <a href='#' className='flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-indigo-700 shadow-sm hover:bg-indigo-50 sm:px-8'>
@@ -261,7 +261,7 @@ export default function Homepage() {
                                     <div className='mt-6'>
                                         <h2 className='text-3xl font-semibold tracking-tight text-gray-900'>Influencer marketing: where results meets relationships</h2>
                                         <p className='mt-4 text-lg text-gray-500'>
-                                            Influencer marketing goes beyond reach. It's about collaborating with influential voices who share your brand's values and resonate with your target audience. These trusted partners will create engaging
+                                            Influencer marketing goes beyond reach. Its about collaborating with influential voices who share your brands values and resonate with your target audience. These trusted partners will create engaging
                                             content that feels genuine, advocating for your brand in a way that fosters lasting relationships and measurable impact.
                                         </p>
                                         <div className='mt-6'>
@@ -310,7 +310,7 @@ export default function Homepage() {
                             <div className='mx-auto max-w-xl px-6 lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-32 lg:px-0'>
                                 <div>
                                     <div className='mt-6'>
-                                        <h2 className='text-3xl font-bold tracking-tight text-gray-900'>Find Your Brand's Voice: Discover Top Content Creators</h2>
+                                        <h2 className='text-3xl font-bold tracking-tight text-gray-900'>Find Your Brands Voice: Discover Top Content Creators</h2>
                                         <p className='mt-4 text-lg text-gray-500'>
                                             Explore a massive pool of talented content creators, all categorized to meet your specific needs. Filter by demographics, skills, follower size, and even network to identify the voices that resonate most
                                             with your target audience. Build authentic connections in just a click and amplify your brand message through powerful influencer partnerships.

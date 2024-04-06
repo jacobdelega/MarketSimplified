@@ -2,13 +2,13 @@
 import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import {
-    ArrowUturnLeftIcon,
+    BanknotesIcon,
     Bars3Icon,
     ChatBubbleBottomCenterTextIcon,
     ChatBubbleLeftEllipsisIcon,
     ChatBubbleLeftRightIcon,
     DocumentChartBarIcon,
-    HeartIcon,
+    ChartPieIcon,
     InboxIcon,
     PencilSquareIcon,
     QuestionMarkCircleIcon,
@@ -49,44 +49,44 @@ const solutions = [
 ];
 const features = [
     {
-        name: "Unlimited Inboxes",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Tier System",
+        description: "We categorize influencers in a  3  based on their reach, engagement, and more to help you find the perfect match.",
         icon: InboxIcon,
     },
     {
-        name: "Manage Team Members",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Campaign Opportunities ",
+        description: "Stop chasing down deals. We put high-paying brand partnerships directly at your fingertips, so you can focus on creating amazing content.",
         icon: UsersIcon,
     },
     {
-        name: "Spam Report",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Networking",
+        description: "Our upcoming web application will connect you with a network of exciting brands, fostering long-term collaborations and building trust in the influencer community.",
         icon: TrashIcon,
     },
     {
-        name: "Compose in Markdown",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Streamlined Workflow",
+        description: "Our platform is designed with creators in mind. We make it simple to find brand deals, manage campaigns, and track your progress – all in one place. ",
         icon: PencilSquareIcon,
     },
     {
-        name: "Team Reporting",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Influencer Database",
+        description: "Skip the guesswork, find the perfect fit. Unleash the power of hyper-targeted influencer marketing. Discover creators who can deliver impactful campaigns that drive real results.",
         icon: DocumentChartBarIcon,
     },
     {
-        name: "Saved Replies",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
-        icon: ArrowUturnLeftIcon,
+        name: "Connectivity",
+        description: "Invest in long-term success. Our platform fosters genuine connections between brands and influencers, leading to successful collaborations that deliver affordable lasting results.",
+        icon: BanknotesIcon,
     },
     {
-        name: "Email Commenting",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
+        name: "Campaign Managment",
+        description: "Our platform will offer a easy to use campaign manager that empowers you to handle everything from setup to execution. No need to worry about contracts, legal work, or payments – we take care of it all.",
         icon: ChatBubbleLeftEllipsisIcon,
     },
     {
-        name: "Connect with Customers",
-        description: "Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis.",
-        icon: HeartIcon,
+        name: "Track Anaylsis",
+        description: "Dive deep or get a quick snapshot. Our powerful tracking tools give you full visibility into your content performance, with both detailed campaign metrics and high-level summaries.",
+        icon: ChartPieIcon,
     },
 ];
 const metrics = [
@@ -341,8 +341,8 @@ export default function Homepage() {
                 {/* Gradient Feature Section */}
                 <div className='bg-gradient-to-r from-purple-800 to-indigo-700'>
                     <div className='mx-auto max-w-4xl py-16 px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:px-8 lg:pt-24'>
-                        <h2 className='text-3xl font-bold tracking-tight text-white'>Inbox support built for efficiency</h2>
-                        <p className='mt-4 max-w-3xl text-lg text-purple-200'>Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi lobortis. Blandit aliquam sit nisl euismod mattis in.</p>
+                        <h2 className='text-3xl font-bold tracking-tight text-white'>MarketSimplified Functions </h2>
+                        <p className='mt-4 max-w-3xl text-lg text-purple-200'>Level Up Your Influencer Marketing: Explore How We Simplify Your Workflow.</p>
                         <div className='mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16'>
                             {features.map((feature) => (
                                 <div key={feature.name}>
@@ -378,12 +378,11 @@ export default function Homepage() {
                     <div className='mx-auto max-w-4xl px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-flow-col-dense xl:grid-cols-2 xl:gap-x-8'>
                         <div className='relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24'>
                             <h2 className='text-base font-semibold'>
-                                <span className='bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent'>Valuable Metrics</span>
+                                <span className='bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent'>Valuable History</span>
                             </h2>
-                            <p className='mt-3 text-3xl font-bold tracking-tight text-white'>Get actionable data that will help grow your business</p>
+                            <p className='mt-3 text-3xl font-bold tracking-tight text-white'>Discover a new world of possibilities with influencer partnerships.</p>
                             <p className='mt-5 text-lg text-gray-300'>
-                                Rhoncus sagittis risus arcu erat lectus bibendum. Ut in adipiscing quis in viverra tristique sem. Ornare feugiat viverra eleifend fusce orci in quis amet. Sit in et vitae tortor, massa. Dapibus laoreet amet lacus nibh
-                                integer quis. Eu vulputate diam sit tellus quis at.
+                                Influencer marketing lets you connect with your target audience through trusted voices they already follow. Imagine reaching millions of potential customers without breaking the bank!
                             </p>
                             <div className='mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2'>
                                 {metrics.map((item) => (

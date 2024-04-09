@@ -14,7 +14,7 @@ const LottieSocialTree = ({ src, width, height, ...rest }) => {
             path: src,
         });
         return () => animation.destroy();
-    }, [src]);
+    }, [src, rest]);
 
     return <div ref={ref} style={{ width, height }} />;
 };

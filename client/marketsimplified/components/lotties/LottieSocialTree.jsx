@@ -1,27 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import Lottie from "lottie-web";
 
 const LottieSocialTree = ({ src, width, height, ...rest }) => {
     const ref = useRef(null);
-    const [animationCreated, setAnimationCreated] = useState(false);
 
     useEffect(() => {
-        if (typeof document !== "undefined" && !animationCreated) {
-            import("lottie-web").then((Lottie) => {
-                const animation = Lottie.loadAnimation({
-                    container: ref.current,
-                    renderer: "svg",
-                    loop: true,
-                    autoplay: true,
-                    ...rest,
-                    path: src,
-                });
-                setAnimationCreated(true);
-                return () => animation.destroy();
-            });
-        }
-    }, [src, animationCreated]);
+        const animation = Lottie.loadAnimation({
+            container: ref.current,
+            renderer: "svg",
+            loop: true,
+            autoplay: true,
+            ...rest,
+            path: src,
+        });
+        return () => animation.destroy();
+    }, [src]);
 
     return <div ref={ref} style={{ width, height }} />;
 };
 
-export default LottieSocialTree;
+export default LottieSocialTree

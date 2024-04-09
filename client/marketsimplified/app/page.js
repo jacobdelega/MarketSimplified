@@ -21,7 +21,11 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { MarketVid } from "../components/ui/video";
 
-import LottieSocialTree from "../components/lotties/LottieSocialTree";
+
+
+import dynamic from 'next/dynamic';
+
+const LottieSocialTree = dynamic(() => import('../components/lotties/LottieSocialTree'), { ssr: false });
 
 const solutions = [
     {

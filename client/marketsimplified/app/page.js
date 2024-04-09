@@ -21,6 +21,8 @@ import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { MarketVid } from "../components/ui/video";
 
+import LottieSocialTree from "../components/lotties/LottieSocialTree";
+
 const solutions = [
     {
         name: "Inbox",
@@ -90,10 +92,10 @@ const features = [
     },
 ];
 const metrics = [
-    { id: 1, stat: "8K+", emphasis: "Companies", rest: "use laoreet amet lacus nibh integer quis." },
-    { id: 2, stat: "25K+", emphasis: "Countries around the globe", rest: "lacus nibh integer quis." },
-    { id: 3, stat: "98%", emphasis: "Customer satisfaction", rest: "laoreet amet lacus nibh integer quis." },
-    { id: 4, stat: "12M+", emphasis: "Issues resolved", rest: "lacus nibh integer quis." },
+    { id: 1, stat: "250 Billion", emphasis: "Ad Reveanue", rest: "A massive market driving innovation and competition in social media." },
+    { id: 2, stat: "500+ Billion", emphasis: "CNBC Estimates", rest: "that in 5 year timeline we will see massive growth." },
+    { id: 3, stat: "47%", emphasis: "of all", rest: "influencers are classified as a Micro-influencer" },
+    { id: 4, stat: "89%", emphasis: "of marketers", rest: "see value from previous results" },
 ];
 const footerNavigation = {
     solutions: [
@@ -199,11 +201,12 @@ export default function Homepage() {
                     <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
                         <div className='relative shadow-xl sm:overflow-hidden sm:rounded-2xl'>
                             <div className='absolute inset-0'>
-                                {/* <img
+                                <img
                                     className='h-full w-full object-cover'
                                     src='https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100'
                                     alt='People working on laptops'
-                                /> */}
+                                />
+
                                 <div className='absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply' />
                             </div>
                             <div className='relative py-16 px-6 sm:py-24 lg:py-32 lg:px-8'>
@@ -281,11 +284,11 @@ export default function Homepage() {
                                         <footer className='mt-3'>
                                             <div className='flex items-center space-x-3'>
                                                 <div className='flex-shrink-0'>
-                                                    <img
+                                                    {/* <img
                                                         className='h-6 w-6 rounded-full'
                                                         src='https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'
                                                         alt=''
-                                                    />
+                                                    /> */}
                                                 </div>
                                                 <div className='text-base font-medium text-gray-700'>Noah Flemming, 2+ Million following</div>
                                             </div>
@@ -300,14 +303,14 @@ export default function Homepage() {
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
                     alt="Inbox user interface"
                   /> */}
-                                    <MarketVid />
+                                    <LottieSocialTree className='h-full w-full object-cover' src='https://lottie.host/6ec9450d-4292-4bef-8b52-7c8b8221f46c/GezYe92vJ8.json' width='500px' height='500px' />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='mt-24'>
                         <div className='lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8'>
-                            <div className='mx-auto max-w-xl px-6 lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-32 lg:px-0'>
+                            <div className='mx-auto max-w-xl px-6 lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
                                 <div>
                                     <div className='mt-6'>
                                         <h2 className='text-3xl font-bold tracking-tight text-gray-900'>Find Your Brands Voice: Discover Top Content Creators</h2>
@@ -332,6 +335,8 @@ export default function Homepage() {
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-2.jpg"
                     alt="Customer profile user interface"
                   /> */}
+                                    <LottieSocialTree className='h-full w-full object-cover' src='https://lottie.host/f0716878-1357-4308-90e8-e14a6b49a22c/XSQiudbkhR.json' width='500px' height='500px' />
+                                    
                                 </div>
                             </div>
                         </div>

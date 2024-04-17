@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Lottie from "lottie-web";
 
-const LottieSocialTree = ({ src, width, height, ...rest }) => {
+const LottieSearch = ({ src, width, height, ...rest }) => {
     const ref = useRef(null);
 
     useEffect(() => {
@@ -19,4 +19,4 @@ const LottieSocialTree = ({ src, width, height, ...rest }) => {
     return <div ref={ref} className="flex w-1/2 m-auto mt-8 lg:w-full" />;
 };
 
-export default LottieSocialTree
+export default LottieSearch

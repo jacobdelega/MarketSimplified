@@ -18,14 +18,18 @@ import {
     XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
 import { MarketVid } from "../components/ui/video";
+import dynamic from "next/dynamic";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogClose } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { toast } from "sonner";
 
+import { useState } from "react";
 
-
-import dynamic from 'next/dynamic';
-
-const LottieSocialTree = dynamic(() => import('../components/lotties/LottieSocialTree'), { ssr: false });
+const LottieSocialTree = dynamic(() => import("../components/lotties/LottieSocialTree"), { ssr: false });
+const LottieSearch = dynamic(() => import("../components/lotties/LottieSearch"), { ssr: false });
 
 const solutions = [
     {
@@ -56,7 +60,7 @@ const solutions = [
 const features = [
     {
         name: "Tier System",
-        description: "We categorize influencers in a  3  based on their reach, engagement, and more to help you find the perfect match.",
+        description: "We categorize influencers in a 3 based on their reach, engagement, and more to help you find the perfect match.",
         icon: InboxIcon,
     },
     {
@@ -96,7 +100,7 @@ const features = [
     },
 ];
 const metrics = [
-    { id: 1, stat: "250 Billion", emphasis: "Ad Reveanue", rest: "A massive market driving innovation and competition in social media." },
+    { id: 1, stat: "250 Billion", emphasis: "up 614% from 2019", rest: "showing a massive market driving innovation and competition in social media." },
     { id: 2, stat: "500+ Billion", emphasis: "CNBC Estimates", rest: "that in 5 year timeline we will see massive growth." },
     { id: 3, stat: "47%", emphasis: "of all", rest: "influencers are classified as a Micro-influencer" },
     { id: 4, stat: "89%", emphasis: "of marketers", rest: "see value from previous results" },
@@ -196,37 +200,109 @@ function classNames(...classes) {
 }
 
 export default function Homepage() {
+    const [name, setName] = useState();
+    const [email, setEmail] = useState();
+    const [error, setError] = useState();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        console.log("email", email) 
+        console.log("name", name)
+
+
+        // Send POST request and handle response
+        try {
+            const formData = new FormData();
+            formData.append("name", name);
+            formData.append("email", email);
+
+            const response = await fetch("/api/addEmail", 
+        {
+            method: "POST",
+            body: formData,
+        })
+
+            if (response.ok) {
+                // Show success message
+                toast("Information has been saved!", {
+                    description: "Sunday, December 03, 2023 at 9:00 AM",
+                    action: {
+                        label: "Undo",
+                        onClick: () => console.log("Undo"),
+                    },
+                });
+            } else {
+                // Handle error response
+                toast("Error saving information", { type: "error" });
+            }
+        } catch (error) {
+            // Handle network error
+            console.error("Error saving information:", error);
+            toast("Error saving information", { type: "error" });
+        }
+    };
+
     return (
         <div className='bg-white'>
             <main>
                 {/* Hero section */}
                 <div className='relative'>
-                    <div className='absolute inset-x-0 bottom-0 h-1/2 bg-gray-100' />
+                    <div className='absolute inset-x-0 bottom-0 bg-gray-100 h-1/2' />
                     <div className='mx-auto max-w-7xl sm:px-6 lg:px-8'>
                         <div className='relative shadow-xl sm:overflow-hidden sm:rounded-2xl'>
                             <div className='absolute inset-0'>
                                 <img
-                                    className='h-full w-full object-cover'
+                                    className='object-cover w-full h-full'
                                     src='https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100'
                                     alt='People working on laptops'
                                 />
 
-                                <div className='absolute inset-0 bg-gradient-to-r from-purple-800 to-indigo-700 mix-blend-multiply' />
+                                <div className='absolute inset-0 bg-gradient-to-r from-slate-800 to-blue-500 mix-blend-multiply' />
                             </div>
-                            <div className='relative py-16 px-6 sm:py-24 lg:py-32 lg:px-8'>
-                                <h1 className='text-center text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl'>
+                            <div className='relative px-6 py-16 sm:py-24 lg:py-32 lg:px-8'>
+                                <h1 className='text-4xl font-bold tracking-tight text-center sm:text-5xl lg:text-6xl'>
                                     <span className='block text-white'>Influencer Marketing</span>
                                     <span className='block text-indigo-200'>the future of brand story telling</span>
                                 </h1>
-                                <p className='mx-auto mt-6 max-w-lg text-center text-xl text-indigo-200 sm:max-w-3xl'>Dont get left behind unlock the power of influencer marketing today</p>
-                                <div className='mx-auto mt-10 max-w-sm sm:flex sm:max-w-none sm:justify-center'>
-                                    <div className='space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-2 sm:gap-5 sm:space-y-0'>
-                                        <a href='#' className='flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-indigo-700 shadow-sm hover:bg-indigo-50 sm:px-8'>
+                                <p className='max-w-lg mx-auto mt-6 text-xl text-center text-indigo-200 sm:max-w-3xl'>Dont get left behind unlock the power of influencer marketing today</p>
+                                <div className='max-w-sm mx-auto mt-10 sm:flex sm:max-w-none sm:justify-center'>
+                                    <div className='space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0'>
+                                        {/* <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8'>
                                             Get started
-                                        </a>
-                                        <a href='#' className='flex items-center justify-center rounded-md border border-transparent bg-indigo-500 bg-opacity-60 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-opacity-70 sm:px-8'>
+                                        </a> */}
+                                        {/* <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-white bg-indigo-500 border border-transparent rounded-md shadow-sm bg-opacity-60 hover:bg-opacity-70 sm:px-8'>
                                             Live demo
-                                        </a>
+                                        </a> */}
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Button className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8'>Contact us</Button>
+                                            </DialogTrigger>
+                                            <DialogContent className='sm:max-w-[425px]'>
+                                                <DialogHeader>
+                                                    <DialogTitle>Lets stay in touch!</DialogTitle>
+                                                    <DialogDescription>If you are intrested in further contact please enter details.</DialogDescription>
+                                                </DialogHeader>
+                                                <div className='grid gap-4 py-4'>
+                                                    <div className='grid items-center grid-cols-4 gap-4'>
+                                                        <Label htmlFor='name' className='text-right'>
+                                                            Name
+                                                        </Label>
+                                                        <Input id='name' defaultValue='Jacob Delega' className='col-span-3' onChange={(e) => setName(e.target.value)} />
+                                                    </div>
+                                                    <div className='grid items-center grid-cols-4 gap-4'>
+                                                        <Label htmlFor='username' className='text-right'>
+                                                            Email
+                                                        </Label>
+                                                        <Input id='username' defaultValue='jacobdelega@gmail.com' className='col-span-3' onChange={(e) => setEmail(e.target.value)} />
+                                                    </div>
+                                                </div>
+                                                <DialogFooter>
+                                                    <DialogClose asChild>
+                                                        <Button type='submit' onClick={handleSubmit}>Save changes</Button>
+                                                    </DialogClose>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
                                     </div>
                                 </div>
                             </div>
@@ -236,22 +312,22 @@ export default function Homepage() {
 
                 {/* Logo Cloud */}
                 <div className='bg-gray-100'>
-                    <div className='mx-auto max-w-7xl py-16 px-6 lg:px-8'>
-                        <p className='text-center text-base font-semibold text-gray-500'>Trusted by over 5 very average small businesses</p>
-                        <div className='mt-6 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5'>
-                            <div className='col-span-1 flex justify-center md:col-span-2 lg:col-span-1'>
+                    <div className='px-6 py-16 mx-auto max-w-7xl lg:px-8'>
+                        <p className='text-base font-semibold text-center text-gray-500'>Trusted by over 5 very average small businesses</p>
+                        <div className='grid grid-cols-2 gap-8 mt-6 md:grid-cols-6 lg:grid-cols-5'>
+                            <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/tuple-logo-gray-400.svg' alt='Tuple' />
                             </div>
-                            <div className='col-span-1 flex justify-center md:col-span-2 lg:col-span-1'>
+                            <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/mirage-logo-gray-400.svg' alt='Mirage' />
                             </div>
-                            <div className='col-span-1 flex justify-center md:col-span-2 lg:col-span-1'>
+                            <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/statickit-logo-gray-400.svg' alt='StaticKit' />
                             </div>
-                            <div className='col-span-1 flex justify-center md:col-span-2 md:col-start-2 lg:col-span-1'>
+                            <div className='flex justify-center col-span-1 md:col-span-2 md:col-start-2 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/transistor-logo-gray-400.svg' alt='Transistor' />
                             </div>
-                            <div className='col-span-2 flex justify-center md:col-span-2 md:col-start-4 lg:col-span-1'>
+                            <div className='flex justify-center col-span-2 md:col-span-2 md:col-start-4 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/workcation-logo-gray-400.svg' alt='Workcation' />
                             </div>
                         </div>
@@ -259,11 +335,11 @@ export default function Homepage() {
                 </div>
 
                 {/* Alternating Feature Sections */}
-                <div className='relative overflow-hidden pt-16 pb-32'>
+                <div className='relative pt-16 pb-32 overflow-hidden'>
                     <div aria-hidden='true' className='absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-gray-100' />
                     <div className='relative'>
                         <div className='lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8'>
-                            <div className='mx-auto max-w-xl px-6 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
+                            <div className='max-w-xl px-6 mx-auto lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
                                 <div>
                                     <div className='mt-6'>
                                         <h2 className='text-3xl font-semibold tracking-tight text-gray-900'>Influencer marketing: where results meets relationships</h2>
@@ -272,15 +348,19 @@ export default function Homepage() {
                                             content that feels genuine, advocating for your brand in a way that fosters lasting relationships and measurable impact.
                                         </p>
                                         <div className='mt-6'>
-                                            <a
-                                                href='#'
-                                                className='inline-flex rounded-md border border-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 text-base font-medium text-white shadow-sm hover:from-purple-700 hover:to-indigo-700'>
-                                                Get started
-                                            </a>
+                                            <Dialog>
+                                                <DialogTrigger asChild>
+                                                    <a
+                                                        href='#'
+                                                        className='inline-flex px-4 py-2 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-indigo-600 to-blue-500 bg-origin-border hover:from-blue-600 hover:to-indigo-700'>
+                                                        Get started
+                                                    </a>
+                                                </DialogTrigger>
+                                            </Dialog>
                                         </div>
                                     </div>
                                 </div>
-                                <div className='mt-8 border-t border-gray-200 pt-6'>
+                                <div className='pt-6 mt-8 border-t border-gray-200'>
                                     <blockquote>
                                         <div>
                                             <p className='text-base text-gray-500'>&ldquo;Being in the space for the past 4 years, if you do one thing go with influencer marketing.&rdquo;</p>
@@ -288,11 +368,11 @@ export default function Homepage() {
                                         <footer className='mt-3'>
                                             <div className='flex items-center space-x-3'>
                                                 <div className='flex-shrink-0'>
-                                                    {/* <img
-                                                        className='h-6 w-6 rounded-full'
+                                                    <img
+                                                        className='w-6 h-6 rounded-full'
                                                         src='https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'
                                                         alt=''
-                                                    /> */}
+                                                    />
                                                 </div>
                                                 <div className='text-base font-medium text-gray-700'>Noah Flemming, 2+ Million following</div>
                                             </div>
@@ -301,20 +381,20 @@ export default function Homepage() {
                                 </div>
                             </div>
                             <div className='mt-12 sm:mt-16 lg:mt-0'>
-                                <div className='-mr-48 pl-6 md:-mr-16 lg:relative lg:m-0 lg:h-full lg:px-0'>
+                                <div className='flex items-center justify-center'>
                                     {/* <img
-                    className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
+                    className="w-full shadow-xl rounded-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
                     alt="Inbox user interface"
                   /> */}
-                                    <LottieSocialTree className='h-full w-full object-cover' src='https://lottie.host/6ec9450d-4292-4bef-8b52-7c8b8221f46c/GezYe92vJ8.json' width='500px' height='500px' />
+                                    <LottieSocialTree src='https://lottie.host/6ec9450d-4292-4bef-8b52-7c8b8221f46c/GezYe92vJ8.json' />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className='mt-24'>
                         <div className='lg:mx-auto lg:grid lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-2 lg:gap-24 lg:px-8'>
-                            <div className='mx-auto max-w-xl px-6 lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
+                            <div className='max-w-xl px-6 mx-auto lg:col-start-2 lg:mx-0 lg:max-w-none lg:py-16 lg:px-0'>
                                 <div>
                                     <div className='mt-6'>
                                         <h2 className='text-3xl font-bold tracking-tight text-gray-900'>Find Your Brands Voice: Discover Top Content Creators</h2>
@@ -325,7 +405,7 @@ export default function Homepage() {
                                         <div className='mt-6'>
                                             <a
                                                 href='#'
-                                                className='inline-flex rounded-md border border-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-2 text-base font-medium text-white shadow-sm hover:from-purple-700 hover:to-indigo-700'>
+                                                className='inline-flex px-4 py-2 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-blue-500 to-indigo-600 bg-origin-border hover:from-blue-600 hover:to-indigo-700'>
                                                 Get started
                                             </a>
                                         </div>
@@ -333,14 +413,13 @@ export default function Homepage() {
                                 </div>
                             </div>
                             <div className='mt-12 sm:mt-16 lg:col-start-1 lg:mt-0'>
-                                <div className='-ml-48 pr-6 md:-ml-16 lg:relative lg:m-0 lg:h-full lg:px-0'>
+                                <div className=''>
                                     {/* <img
-                    className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
+                    className="w-full shadow-xl rounded-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
                     src="https://tailwindui.com/img/component-images/inbox-app-screenshot-2.jpg"
                     alt="Customer profile user interface"
                   /> */}
-                                    <LottieSocialTree className='h-full w-full object-cover' src='https://lottie.host/f0716878-1357-4308-90e8-e14a6b49a22c/XSQiudbkhR.json' width='500px' height='500px' />
-                                    
+                                    <LottieSearch src='https://lottie.host/f0716878-1357-4308-90e8-e14a6b49a22c/XSQiudbkhR.json' width='500px' height='500px' />
                                 </div>
                             </div>
                         </div>
@@ -348,21 +427,21 @@ export default function Homepage() {
                 </div>
 
                 {/* Gradient Feature Section */}
-                <div className='bg-gradient-to-r from-purple-800 to-indigo-700'>
-                    <div className='mx-auto max-w-4xl py-16 px-6 sm:pt-20 sm:pb-24 lg:max-w-7xl lg:px-8 lg:pt-24'>
+                <div className='bg-gradient-to-r from-slate-800 to-blue-700'>
+                    <div className='max-w-4xl px-6 py-16 mx-auto sm:pt-20 sm:pb-24 lg:max-w-7xl lg:px-8 lg:pt-24'>
                         <h2 className='text-3xl font-bold tracking-tight text-white'>MarketSimplified Functions </h2>
-                        <p className='mt-4 max-w-3xl text-lg text-purple-200'>Level Up Your Influencer Marketing: Explore How We Simplify Your Workflow.</p>
-                        <div className='mt-12 grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16'>
+                        <p className='max-w-3xl mt-4 text-lg text-indigo-200'>Level Up Your Influencer Marketing: Explore How We Simplify Your Workflow.</p>
+                        <div className='grid grid-cols-1 mt-12 gap-x-6 gap-y-12 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-8 lg:gap-y-16'>
                             {features.map((feature) => (
                                 <div key={feature.name}>
                                     <div>
-                                        <span className='flex h-12 w-12 items-center justify-center rounded-md bg-white bg-opacity-10'>
-                                            <feature.icon className='h-6 w-6 text-white' aria-hidden='true' />
+                                        <span className='flex items-center justify-center w-12 h-12 bg-white rounded-md bg-opacity-10'>
+                                            <feature.icon className='w-6 h-6 text-white' aria-hidden='true' />
                                         </span>
                                     </div>
                                     <div className='mt-6'>
                                         <h3 className='text-lg font-medium text-white'>{feature.name}</h3>
-                                        <p className='mt-2 text-base text-purple-200'>{feature.description}</p>
+                                        <p className='mt-2 text-base text-indigo-200'>{feature.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -373,10 +452,10 @@ export default function Homepage() {
                 {/* Stats section */}
                 <div className='relative bg-gray-900'>
                     <div className='absolute inset-x-0 bottom-0 h-80 xl:top-0 xl:h-full'>
-                        <div className='h-full w-full xl:grid xl:grid-cols-2'>
+                        <div className='w-full h-full xl:grid xl:grid-cols-2'>
                             <div className='h-full xl:relative xl:col-start-2'>
                                 <img
-                                    className='h-full w-full object-cover opacity-25 xl:absolute xl:inset-0'
+                                    className='object-cover w-full h-full opacity-25 xl:absolute xl:inset-0'
                                     src='https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100'
                                     alt='People working on laptops'
                                 />
@@ -384,20 +463,20 @@ export default function Homepage() {
                             </div>
                         </div>
                     </div>
-                    <div className='mx-auto max-w-4xl px-6 lg:max-w-7xl lg:px-8 xl:grid xl:grid-flow-col-dense xl:grid-cols-2 xl:gap-x-8'>
+                    <div className='max-w-4xl px-6 mx-auto lg:max-w-7xl lg:px-8 xl:grid xl:grid-flow-col-dense xl:grid-cols-2 xl:gap-x-8'>
                         <div className='relative pt-12 pb-64 sm:pt-24 sm:pb-64 xl:col-start-1 xl:pb-24'>
                             <h2 className='text-base font-semibold'>
-                                <span className='bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text text-transparent'>Valuable History</span>
+                                <span className='text-transparent bg-gradient-to-r from-purple-300 to-indigo-300 bg-clip-text'>Valuable History</span>
                             </h2>
                             <p className='mt-3 text-3xl font-bold tracking-tight text-white'>Discover a new world of possibilities with influencer partnerships.</p>
                             <p className='mt-5 text-lg text-gray-300'>
                                 Influencer marketing lets you connect with your target audience through trusted voices they already follow. Imagine reaching millions of potential customers without breaking the bank!
                             </p>
-                            <div className='mt-12 grid grid-cols-1 gap-y-12 gap-x-6 sm:grid-cols-2'>
+                            <div className='grid grid-cols-1 mt-12 gap-y-12 gap-x-6 sm:grid-cols-2'>
                                 {metrics.map((item) => (
                                     <p key={item.id}>
                                         <span className='block text-2xl font-bold text-white'>{item.stat}</span>
-                                        <span className='mt-1 block text-base text-gray-300'>
+                                        <span className='block mt-1 text-base text-gray-300'>
                                             <span className='font-medium text-white'>{item.emphasis}</span> {item.rest}
                                         </span>
                                     </p>
@@ -409,18 +488,18 @@ export default function Homepage() {
 
                 {/* CTA Section */}
                 <div className='bg-white'>
-                    <div className='mx-auto max-w-4xl py-16 px-6 sm:py-24 lg:flex lg:max-w-7xl lg:items-center lg:justify-between lg:px-8'>
+                    <div className='max-w-4xl px-6 py-16 mx-auto sm:py-24 lg:flex lg:max-w-7xl lg:items-center lg:justify-between lg:px-8'>
                         <h2 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
                             <span className='block'>Ready to get started?</span>
-                            <span className='-mb-1 block bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text pb-1 text-transparent'>Get in touch or create an account.</span>
+                            <span className='block pb-1 -mb-1 text-transparent bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text'>Get in touch or create an account.</span>
                         </h2>
                         <div className='mt-6 space-y-4 sm:flex sm:space-y-0 sm:space-x-5'>
                             <a
                                 href='#'
-                                className='flex items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-3 text-base font-medium text-white shadow-sm hover:from-purple-700 hover:to-indigo-700'>
-                                Learn more
+                                className='flex items-center justify-center px-4 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-blue-500 to-indigo-600 bg-origin-border hover:from-blue-600 hover:to-indigo-700'>
+                                Contact Us
                             </a>
-                            <a href='#' className='flex items-center justify-center rounded-md border border-transparent bg-indigo-50 px-4 py-3 text-base font-medium text-indigo-800 shadow-sm hover:bg-indigo-100'>
+                            <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-800 border border-transparent rounded-md shadow-sm bg-indigo-50 hover:bg-indigo-100'>
                                 Get started
                             </a>
                         </div>
@@ -432,8 +511,8 @@ export default function Homepage() {
                 <h2 id='footer-heading' className='sr-only'>
                     Footer
                 </h2>
-                <div className='mx-auto max-w-7xl px-6 pt-16 pb-8 lg:px-8 lg:pt-24'>
-                    <div className='xl:grid xl:grid-cols-3 xl:gap-8'>
+                <div className='px-6 pt-16 pb-8 mx-auto max-w-7xl lg:px-8 lg:pt-24'>
+                    {/* <div className='xl:grid xl:grid-cols-3 xl:gap-8'>
                         <div className='grid grid-cols-2 gap-8 xl:col-span-2'>
                             <div className='md:grid md:grid-cols-2 md:gap-8'>
                                 <div>
@@ -501,29 +580,29 @@ export default function Homepage() {
                                     id='email-address'
                                     autoComplete='email'
                                     required
-                                    className='w-full min-w-0 appearance-none rounded-md border border-gray-300 bg-white py-2 px-4 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-indigo-500'
+                                    className='w-full min-w-0 px-4 py-2 text-base text-gray-900 placeholder-gray-500 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:border-indigo-500 focus:placeholder-gray-400 focus:outline-none focus:ring-indigo-500'
                                     placeholder='Enter your email'
                                 />
                                 <div className='mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0'>
                                     <button
                                         type='submit'
-                                        className='flex w-full items-center justify-center rounded-md border border-transparent bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border px-4 py-3 text-base font-medium text-white shadow-sm hover:from-purple-700 hover:to-indigo-700'>
+                                        className='flex items-center justify-center w-full px-4 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-purple-600 to-indigo-600 bg-origin-border hover:from-purple-700 hover:to-indigo-700'>
                                         Subscribe
                                     </button>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                    <div className='mt-12 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between lg:mt-16'>
+                    </div> */}
+                    <div className='pt-8 mt-6 border-t border-gray-200 md:flex md:items-center md:justify-between lg:mt-16'>
                         <div className='flex space-x-6 md:order-2'>
                             {footerNavigation.social.map((item) => (
                                 <a key={item.name} href={item.href} className='text-gray-400 hover:text-gray-500'>
                                     <span className='sr-only'>{item.name}</span>
-                                    <item.icon className='h-6 w-6' aria-hidden='true' />
+                                    <item.icon className='w-6 h-6' aria-hidden='true' />
                                 </a>
                             ))}
                         </div>
-                        <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2020 Your Company, Inc. All rights reserved.</p>
+                        <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2020 Marketing Simp, Inc. All rights reserved.</p>
                     </div>
                 </div>
             </footer>

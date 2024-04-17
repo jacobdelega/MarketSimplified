@@ -14,7 +14,8 @@ pnpm dev
 bun dev
 ```
 
-## Cool things about Next.JS
+# new things about NextJS
 
-A folder counts as a router... everything stays inside clean development.
+-   FormData with API endpoints...
 
+*   Much cleaner to append and access different key, val pairs within the formData sent through the req.body.

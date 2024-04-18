@@ -16,13 +16,13 @@ import {
 const nav_action_items = () => {
     return (
         <>
-            <p className='hover:text-neutral-400 text-slate-700 font-medium'>
+            {/* <p className='font-medium hover:text-neutral-400 text-slate-700'>
                 <Link href='/contact'>Contact us</Link>
-            </p>
-            {/* <p className='hover:text-neutral-400 text-slate-700 font-medium'>
+            </p> */}
+            {/* <p className='font-medium hover:text-neutral-400 text-slate-700'>
                 <Link href='/about'>About us</Link>
             </p> */}
-            <p className='bg-blue-500 px-3 py-2 text-white rounded-md hover:bg-indigo-300 font-medium'>
+            <p className='px-3 py-2 font-medium text-white bg-blue-500 rounded-md hover:bg-indigo-300'>
                 <Link href='/login'>Login</Link>
             </p>
         </>

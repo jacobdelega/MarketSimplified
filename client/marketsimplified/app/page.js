@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import Image from 'next/image'
 
 import { useState } from "react";
 
@@ -203,34 +204,37 @@ export default function Homepage() {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [error, setError] = useState();
+    const [open, setOpen] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("email", email) 
-        console.log("name", name)
-
 
         // Send POST request and handle response
         try {
+            // verify email .. if not jump out and just prompt user to enter a valid email
+            if (!email) {
+                toast("Please enter a valid email address", { type: "error" });
+                return;
+            }
+
             const formData = new FormData();
             formData.append("name", name);
             formData.append("email", email);
-
-            const response = await fetch("/api/addEmail", 
-        {
-            method: "POST",
-            body: formData,
-        })
+            const response = await fetch("/api/addEmail", {
+                method: "POST",
+                body: formData,
+            });
 
             if (response.ok) {
                 // Show success message
-                toast("Information has been saved!", {
-                    description: "Sunday, December 03, 2023 at 9:00 AM",
+                toast("Your information has been saved!", {
                     action: {
                         label: "Undo",
                         onClick: () => console.log("Undo"),
                     },
                 });
+
+                setOpen(false);
             } else {
                 // Handle error response
                 toast("Error saving information", { type: "error" });
@@ -254,7 +258,7 @@ export default function Homepage() {
                                 <img
                                     className='object-cover w-full h-full'
                                     src='https://images.unsplash.com/photo-1521737852567-6949f3f9f2b5?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2830&q=80&sat=-100'
-                                    alt='People working on laptops'
+                                    alt=''
                                 />
 
                                 <div className='absolute inset-0 bg-gradient-to-r from-slate-800 to-blue-500 mix-blend-multiply' />
@@ -265,7 +269,7 @@ export default function Homepage() {
                                     <span className='block text-indigo-200'>the future of brand story telling</span>
                                 </h1>
                                 <p className='max-w-lg mx-auto mt-6 text-xl text-center text-indigo-200 sm:max-w-3xl'>Dont get left behind unlock the power of influencer marketing today</p>
-                                <div className='max-w-sm mx-auto mt-10 sm:flex sm:max-w-none sm:justify-center'>
+                                <div className='max-w-sm mx-auto mt-10 flex sm:max-w-none justify-center'>
                                     <div className='space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0'>
                                         {/* <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8'>
                                             Get started
@@ -280,27 +284,29 @@ export default function Homepage() {
                                             <DialogContent className='sm:max-w-[425px]'>
                                                 <DialogHeader>
                                                     <DialogTitle>Lets stay in touch!</DialogTitle>
-                                                    <DialogDescription>If you are intrested in further contact please enter details.</DialogDescription>
+                                                    <DialogDescription>If you are interested in further contact please enter details.</DialogDescription>
                                                 </DialogHeader>
-                                                <div className='grid gap-4 py-4'>
-                                                    <div className='grid items-center grid-cols-4 gap-4'>
-                                                        <Label htmlFor='name' className='text-right'>
-                                                            Name
-                                                        </Label>
-                                                        <Input id='name' defaultValue='Jacob Delega' className='col-span-3' onChange={(e) => setName(e.target.value)} />
+                                                <form onSubmit={handleSubmit}>
+                                                    <div className='grid gap-4 py-4'>
+                                                        <div className='grid items-center grid-cols-4 gap-4'>
+                                                            <Label htmlFor='name' className='text-right'>
+                                                                Name
+                                                            </Label>
+                                                            <Input id='name' placeholder='Jacob Delega' className='col-span-3' type='name' onChange={(e) => setName(e.target.value)} />
+                                                        </div>
+                                                        <div className='grid items-center grid-cols-4 gap-4'>
+                                                            <Label htmlFor='email' className='text-right'>
+                                                                Email
+                                                            </Label>
+                                                            <Input id='email' placeholder='jacobdelega@gmail.com' className='col-span-3' onChange={(e) => setEmail(e.target.value)} />
+                                                        </div>
                                                     </div>
-                                                    <div className='grid items-center grid-cols-4 gap-4'>
-                                                        <Label htmlFor='username' className='text-right'>
-                                                            Email
-                                                        </Label>
-                                                        <Input id='username' defaultValue='jacobdelega@gmail.com' className='col-span-3' onChange={(e) => setEmail(e.target.value)} />
-                                                    </div>
-                                                </div>
-                                                <DialogFooter>
-                                                    <DialogClose asChild>
-                                                        <Button type='submit' onClick={handleSubmit}>Save changes</Button>
-                                                    </DialogClose>
-                                                </DialogFooter>
+                                                    <DialogFooter>
+                                                        <DialogClose asChild>
+                                                            <Button type='submit'>Save changes</Button>
+                                                        </DialogClose>
+                                                    </DialogFooter>
+                                                </form>
                                             </DialogContent>
                                         </Dialog>
                                     </div>
@@ -382,11 +388,6 @@ export default function Homepage() {
                             </div>
                             <div className='mt-12 sm:mt-16 lg:mt-0'>
                                 <div className='flex items-center justify-center'>
-                                    {/* <img
-                    className="w-full shadow-xl rounded-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none"
-                    src="https://tailwindui.com/img/component-images/inbox-app-screenshot-1.jpg"
-                    alt="Inbox user interface"
-                  /> */}
                                     <LottieSocialTree src='https://lottie.host/6ec9450d-4292-4bef-8b52-7c8b8221f46c/GezYe92vJ8.json' />
                                 </div>
                             </div>
@@ -414,11 +415,6 @@ export default function Homepage() {
                             </div>
                             <div className='mt-12 sm:mt-16 lg:col-start-1 lg:mt-0'>
                                 <div className=''>
-                                    {/* <img
-                    className="w-full shadow-xl rounded-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:right-0 lg:h-full lg:w-auto lg:max-w-none"
-                    src="https://tailwindui.com/img/component-images/inbox-app-screenshot-2.jpg"
-                    alt="Customer profile user interface"
-                  /> */}
                                     <LottieSearch src='https://lottie.host/f0716878-1357-4308-90e8-e14a6b49a22c/XSQiudbkhR.json' width='500px' height='500px' />
                                 </div>
                             </div>
@@ -494,12 +490,42 @@ export default function Homepage() {
                             <span className='block pb-1 -mb-1 text-transparent bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text'>Get in touch or create an account.</span>
                         </h2>
                         <div className='mt-6 space-y-4 sm:flex sm:space-y-0 sm:space-x-5'>
-                            <a
-                                href='#'
-                                className='flex items-center justify-center px-4 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-blue-500 to-indigo-600 bg-origin-border hover:from-blue-600 hover:to-indigo-700'>
-                                Contact Us
-                            </a>
-                            <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-800 border border-transparent rounded-md shadow-sm bg-indigo-50 hover:bg-indigo-100'>
+                            <Dialog>
+                                <DialogTrigger asChild>
+                                    <Button className='w-full md:w-[120px] flex items-center justify-center px-4 py-3 text-base font-medium text-white border border-transparent rounded-md shadow-sm bg-gradient-to-r from-blue-500 to-indigo-600 bg-origin-border hover:from-blue-600 hover:to-indigo-700 h-18'>
+                                        Contact us
+                                    </Button>
+                                </DialogTrigger>
+                                <DialogContent className='sm:max-w-[425px]'>
+                                    <DialogHeader>
+                                        <DialogTitle>Lets stay in touch!</DialogTitle>
+                                        <DialogDescription>If you are interested in further contact please enter details.</DialogDescription>
+                                    </DialogHeader>
+                                    <form onSubmit={handleSubmit}>
+                                        <div className='grid gap-4 py-4'>
+                                            <div className='grid items-center grid-cols-4 gap-4'>
+                                                <Label htmlFor='name' className='text-right'>
+                                                    Name
+                                                </Label>
+                                                <Input id='name' placeholder='Jacob Delega' className='col-span-3' type='name' onChange={(e) => setName(e.target.value)} />
+                                            </div>
+                                            <div className='grid items-center grid-cols-4 gap-4'>
+                                                <Label htmlFor='email' className='text-right'>
+                                                    Email
+                                                </Label>
+                                                <Input id='email' placeholder='jacobdelega@gmail.com' className='col-span-3' onChange={(e) => setEmail(e.target.value)} />
+                                            </div>
+                                        </div>
+                                        <DialogFooter>
+                                            <DialogClose asChild>
+                                                <Button type='submit'>Save changes</Button>
+                                            </DialogClose>
+                                        </DialogFooter>
+                                    </form>
+                                </DialogContent>
+                            </Dialog>
+                            
+                            <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-800 border border-transparent rounded-md shadow-sm bg-indigo-50 hover:bg-indigo-100 w-25'>
                                 Get started
                             </a>
                         </div>

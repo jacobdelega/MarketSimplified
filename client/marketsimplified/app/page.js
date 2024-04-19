@@ -25,7 +25,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import Image from 'next/image'
+import Image from "next/image";
 
 import { useState } from "react";
 
@@ -61,7 +61,7 @@ const solutions = [
 const features = [
     {
         name: "Tier System",
-        description: "We categorize influencers in a 3 based on their reach, engagement, and more to help you find the perfect match.",
+        description: "We categorize influencers with a tier system broken up into 3 levels based on their reach, engagement, and more to help you find the perfect match.",
         icon: InboxIcon,
     },
     {
@@ -101,10 +101,10 @@ const features = [
     },
 ];
 const metrics = [
-    { id: 1, stat: "250 Billion", emphasis: "up 614% from 2019", rest: "showing a massive market driving innovation and competition in social media." },
+    { id: 1, stat: "250 Billion market", emphasis: "up 210 billion from 2020", rest: "showing a massive market driving innovation and competition in social media." },
     { id: 2, stat: "500+ Billion", emphasis: "CNBC Estimates", rest: "that in 5 year timeline we will see massive growth." },
     { id: 3, stat: "47%", emphasis: "of all", rest: "influencers are classified as a Micro-influencer" },
-    { id: 4, stat: "89%", emphasis: "of marketers", rest: "see value from previous results" },
+    { id: 4, stat: "89%", emphasis: "of marketers", rest: "who currently engage with influencer marketing will increase or maintain there investment" },
 ];
 const footerNavigation = {
     solutions: [
@@ -317,15 +317,21 @@ export default function Homepage() {
                 </div>
 
                 {/* Logo Cloud */}
-                <div className='bg-gray-100'>
+                {/* <div className='bg-gray-100'>
                     <div className='px-6 py-16 mx-auto max-w-7xl lg:px-8'>
-                        <p className='text-base font-semibold text-center text-gray-500'>Trusted by over 5 very average small businesses</p>
-                        <div className='grid grid-cols-2 gap-8 mt-6 md:grid-cols-6 lg:grid-cols-5'>
+                        <p className='text-base font-semibold text-center text-gray-500'>These are examples</p>
+                        <div className=''>
                             <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
-                                <img className='h-12' src='https://tailwindui.com/img/logos/tuple-logo-gray-400.svg' alt='Tuple' />
+                                <img className='h-15' src='https://flemingfruit.com/cdn/shop/files/Projekt_bez_nazwy_36.png?v=1708979800' alt='Tuple' />
                             </div>
                             <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
-                                <img className='h-12' src='https://tailwindui.com/img/logos/mirage-logo-gray-400.svg' alt='Mirage' />
+                                <Image
+                                    src='/images/jaytire.png'
+                                    alt='Mirage'
+                                    width={200} // Replace with actual image width
+                                    height={50} // Replace with actual image height
+                                    // Or "fill" or "intrinsic" based on your needs
+                                />
                             </div>
                             <div className='flex justify-center col-span-1 md:col-span-2 lg:col-span-1'>
                                 <img className='h-12' src='https://tailwindui.com/img/logos/statickit-logo-gray-400.svg' alt='StaticKit' />
@@ -338,7 +344,7 @@ export default function Homepage() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
 
                 {/* Alternating Feature Sections */}
                 <div className='relative pt-16 pb-32 overflow-hidden'>
@@ -369,18 +375,14 @@ export default function Homepage() {
                                 <div className='pt-6 mt-8 border-t border-gray-200'>
                                     <blockquote>
                                         <div>
-                                            <p className='text-base text-gray-500'>&ldquo;Being in the space for the past 4 years, if you do one thing go with influencer marketing.&rdquo;</p>
+                                            <p className='text-base text-gray-500'>&ldquo;Being in the space for the past 4 years, I wish I had a platform like this when I started. Looking forward to using this product in the future.&rdquo;</p>
                                         </div>
                                         <footer className='mt-3'>
                                             <div className='flex items-center space-x-3'>
                                                 <div className='flex-shrink-0'>
-                                                    <img
-                                                        className='w-6 h-6 rounded-full'
-                                                        src='https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'
-                                                        alt=''
-                                                    />
+                                                    <img className='w-6 h-6 rounded-full' src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmYr7n8L1ni-HRm9zqHRP5CT0lIBvw4D0GXjZaHp1Eqw&s' alt='' />
                                                 </div>
-                                                <div className='text-base font-medium text-gray-700'>Noah Flemming, 2+ Million following</div>
+                                                <div className='text-base font-medium text-gray-700'>Adam Elsaadi, 40k following</div>
                                             </div>
                                         </footer>
                                     </blockquote>
@@ -524,7 +526,7 @@ export default function Homepage() {
                                     </form>
                                 </DialogContent>
                             </Dialog>
-                            
+
                             <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-800 border border-transparent rounded-md shadow-sm bg-indigo-50 hover:bg-indigo-100 w-25'>
                                 Get started
                             </a>
@@ -620,14 +622,14 @@ export default function Homepage() {
                         </div>
                     </div> */}
                     <div className='pt-8 mt-6 border-t border-gray-200 md:flex md:items-center md:justify-between lg:mt-16'>
-                        <div className='flex space-x-6 md:order-2'>
+                        {/* <div className='flex space-x-6 md:order-2'>
                             {footerNavigation.social.map((item) => (
                                 <a key={item.name} href={item.href} className='text-gray-400 hover:text-gray-500'>
                                     <span className='sr-only'>{item.name}</span>
                                     <item.icon className='w-6 h-6' aria-hidden='true' />
                                 </a>
                             ))}
-                        </div>
+                        </div> */}
                         <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2020 Marketing Simp, Inc. All rights reserved.</p>
                     </div>
                 </div>

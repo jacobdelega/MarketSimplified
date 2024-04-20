@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 
 import { useState } from "react";
+import { DialogActions } from "@mui/material";
 
 const LottieSocialTree = dynamic(() => import("../components/lotties/LottieSocialTree"), { ssr: false });
 const LottieSearch = dynamic(() => import("../components/lotties/LottieSearch"), { ssr: false });
@@ -270,16 +271,16 @@ export default function Homepage() {
                                 </h1>
                                 <p className='max-w-lg mx-auto mt-6 text-xl text-center text-indigo-200 sm:max-w-3xl'>Dont get left behind unlock the power of influencer marketing today</p>
                                 <div className='max-w-sm mx-auto mt-10 flex sm:max-w-none justify-center'>
-                                    <div className='space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0'>
+                                    <div className='flex space-x-5 space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0'>
                                         {/* <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8'>
                                             Get started
                                         </a> */}
-                                        {/* <a href='#' className='flex items-center justify-center px-4 py-3 text-base font-medium text-white bg-indigo-500 border border-transparent rounded-md shadow-sm bg-opacity-60 hover:bg-opacity-70 sm:px-8'>
-                                            Live demo
+                                        {/* <a href='https://linkedin.com/in/jacobdelega' className='flex items-center justify-center px-4 gap-4 py-3 text-base font-medium text-white bg-indigo-500 border border-transparent rounded-md shadow-sm bg-opacity-60  hover:bg-opacity-70 sm:px-8'>
+                                            LinkedIn
                                         </a> */}
                                         <Dialog>
                                             <DialogTrigger asChild>
-                                                <Button className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8'>Contact us</Button>
+                                                <Button className='flex items-center justify-center px-4 py-3 text-base font-medium text-blue-500 bg-white border border-transparent rounded-md shadow-sm hover:bg-indigo-50 sm:px-8 '>Contact us</Button>
                                             </DialogTrigger>
                                             <DialogContent className='sm:max-w-[425px]'>
                                                 <DialogHeader>
@@ -622,14 +623,14 @@ export default function Homepage() {
                         </div>
                     </div> */}
                     <div className='pt-8 mt-6 border-t border-gray-200 md:flex md:items-center md:justify-between lg:mt-16'>
-                        {/* <div className='flex space-x-6 md:order-2'>
+                        <div className='flex space-x-6 md:order-2'>
                             {footerNavigation.social.map((item) => (
                                 <a key={item.name} href={item.href} className='text-gray-400 hover:text-gray-500'>
                                     <span className='sr-only'>{item.name}</span>
                                     <item.icon className='w-6 h-6' aria-hidden='true' />
                                 </a>
                             ))}
-                        </div> */}
+                        </div>
                         <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2020 Marketing Simp, Inc. All rights reserved.</p>
                     </div>
                 </div>

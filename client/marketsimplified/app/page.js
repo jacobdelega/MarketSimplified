@@ -373,7 +373,8 @@ export default function Homepage() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='pt-6 mt-8 border-t border-gray-200'>
+                                {/* TODO: ADD A QUOTE FROM SOMEONE CREDIBLE */}
+                                {/* <div className='pt-6 mt-8 border-t border-gray-200'>
                                     <blockquote>
                                         <div>
                                             <p className='text-base text-gray-500'>&ldquo;Being in the space for the past 4 years, I wish I had a platform like this when I started. Looking forward to using this product in the future.&rdquo;</p>
@@ -387,7 +388,7 @@ export default function Homepage() {
                                             </div>
                                         </footer>
                                     </blockquote>
-                                </div>
+                                </div> */}
                             </div>
                             <div className='mt-12 sm:mt-16 lg:mt-0'>
                                 <div className='flex items-center justify-center'>

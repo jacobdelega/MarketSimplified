@@ -632,7 +632,7 @@ export default function Homepage() {
                                 </a>
                             ))}
                         </div>
-                        <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2020 Marketing Simp, Inc. All rights reserved.</p>
+                        <p className='mt-8 text-base text-gray-400 md:order-1 md:mt-0'>&copy; 2024 Marketing Simplified, Inc. All rights reserved.</p>
                     </div>
                 </div>
             </footer>

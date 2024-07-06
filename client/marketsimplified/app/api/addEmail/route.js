@@ -1,6 +1,6 @@
 // route.js
 import connectDB from "../../../lib/db";
-import User from "../../../models/emails";
+import Email from "../../../models/emails";
 
 export async function POST(req) {
     await connectDB();
@@ -14,8 +14,8 @@ export async function POST(req) {
     const email = formData.get('email');
 
     // Let add the user
-    const user = new User({ name, email });
-    await user.save(); // Save to database
+    const user_email = new Email({ name, email });
+    await user_email.save(); // Save to database
 
     return Response.json({name, email})
 }

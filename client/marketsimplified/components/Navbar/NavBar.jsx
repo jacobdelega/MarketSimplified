@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTrigger } from
 import { AlignJustify } from "lucide-react";
 import Link from "next/link";
 
-const navbar = () => {
+const NavBar = () => {
     return (
         <div className='flex z-10 w-full justify-between items-center px-8 py-8 lg:px-32 lg:py-8 '>
             <Logo />
@@ -38,4 +38,4 @@ const navbar = () => {
     );
 };
 
-export default navbar;
+export default NavBar;

@@ -1,13 +1,47 @@
+import connectDB from "@/lib/dbConnection";
+import { createUser, getUserFromEmail } from "@/queries/users";
+import { saltAndHashPassword } from "@/utils/hashpw";
 export async function POST(req) {
+    try {
+        // Grab data from CLIENT
+        const formData = await req.json(); // Grab the form data
+        const { name, email, password } = formData;
 
-    // Grab data from CLIENT
-    const formData = await req.json(); // Grab the form data
-    const { name, email, password } = formData;
+        // Validate data
+        if (!name || !email || !password) {
+            return Response.json({ message: "All fields are required" }, { status: 400 });
+        }
 
-    // Check with the database if active user.
-    
+        // Validate password strength
+        if (password.length < 8) {
+            return Response.json({ message: "Password must be at least 8 characters long" }, { status: 400 });
+        }
 
-    
+        // Establish DB Connection
+        await connectDB();
 
-    return Response.json({ message: "Success!" });
+        // Check if user exists
+        const userExists = await getUserFromEmail(email);
+        if (userExists) {
+            return Response.json({ message: "User already exists with this email" }, { status: 400 });
+        }
+
+        // hash password for formated user data
+        const hashedPassword = await saltAndHashPassword(password);
+
+        // Formated user data
+        const userData = {
+            name,
+            email,
+            password: hashedPassword,
+        };
+
+        // Let create the user
+        await createUser(userData);
+
+        return Response.json({ message: "Account created successfully!" }, { status: 201 });
+    } catch (error) {
+        console.error('Register error:', error);
+        return Response.json({ message: "An unexpected error occured" }, { status: 500 });
+    }
 }

@@ -1,5 +1,5 @@
 // route.js
-import connectDB from "../../../lib/db";
+import connectDB from "../../../lib/dbConnection";
 import Email from "../../../models/emails";
 
 export async function POST(req) {

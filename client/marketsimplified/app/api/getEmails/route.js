@@ -1,5 +1,5 @@
 import Email from "../../../models/emails";
-import connectDB from "../../../lib/db";
+import connectDB from "../../../lib/dbConnection";
 
 import { NextResponse } from 'next/server';
 

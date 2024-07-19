@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { ChevronLeft, ChevronRight, Copy, CreditCard, File, Home, LineChart, ListFilter, MoreVertical, Package, Package2, PanelLeft, Search, Settings, ShoppingCart, Truck, Users2 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -15,8 +16,12 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { auth } from "@/auth";
 
-export default function Dashboard() {
+export default async function Dashboard() {
+    const userData = await auth();
+    const user_name = userData?.user?.name;
+
     return (
         <div className='flex min-h-screen w-full flex-col bg-muted/40'>
             <aside className='fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex'>
@@ -94,22 +99,23 @@ export default function Dashboard() {
                     </TooltipProvider>
                 </nav>
                 <nav className='mt-auto flex flex-col items-center gap-4 px-2 sm:py-5'>
-                  <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Link
-                                href='#'
-                                className='flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8'>
-                                <Settings className='h-5 w-5' />
-                                <span className='sr-only'>Settings</span>
-                            </Link>
-                        </TooltipTrigger>
-                        <TooltipContent side='right'>Settings</TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
+                    <TooltipProvider>
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Link
+                                    href='#'
+                                    className='flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8'>
+                                    <Settings className='h-5 w-5' />
+                                    <span className='sr-only'>Settings</span>
+                                </Link>
+                            </TooltipTrigger>
+                            <TooltipContent side='right'>Settings</TooltipContent>
+                        </Tooltip>
+                    </TooltipProvider>
                 </nav>
             </aside>
             <div className='flex flex-col sm:gap-4 sm:py-4 sm:pl-14'>
+                <h1>Welcome {user_name}</h1>
                 <header className='sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
                     <Sheet>
                         <SheetTrigger asChild>

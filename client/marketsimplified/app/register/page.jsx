@@ -1,32 +1,47 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const Register = () => {
-    // Define error message
-    const [error, setError] = useState("");
-
-    // react hook
+    // nextjs router
     const router = useRouter();
+
+    // React-hook-form
     const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data) => {
-        // Request details
+        // Request details - Simple POST method
+        const requestOptions = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        };
         try {
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            };
-            console.log('prepping to send POST')
-            const req = await fetch(["/api/register"], requestOptions);
-            const response = await req.json();
-            console.log('Successful POST')
-        } catch (error) {}
+            //  Send request
+            const response = await fetch(["/api/register"], requestOptions);
+
+            //  Grab response from backend
+            const result = await response.json();
+
+            // Check if user was created
+            if (response.ok) {
+                toast.success(result.message);
+
+                // Timer for redirect to prompt toast
+                setTimeout(() => {
+                    router.push("/login");
+                }, 2000);
+            } else {
+                toast.error(result.message);
+            }
+        } catch (error) {
+            console.error("Register error:", error);
+            toast.error("An unexpected error occured");
+        }
     };
 
     return (
@@ -39,17 +54,20 @@ const Register = () => {
                     className='flex flex-col gap-3'>
                     <input
                         type='text'
+                        required
                         placeholder='username'
                         {...register("name")}
                     />
                     <input
                         type='text'
+                        required
                         placeholder='foo@gmail.com'
                         {...register("email")}
                     />
                     <input
-                        type='text'
+                        type='password'
                         placeholder='password'
+                        required
                         {...register("password")}
                     />
                     <button
@@ -58,12 +76,9 @@ const Register = () => {
                         Register
                     </button>
 
-                    {error && <div className='px-3 py-1 mt-2 text-sm text-white bg-red-500 rounded-md w-fit'>{error}</div>}
-
                     <Link
                         href='/login'
                         className='mt-3 text-sm text-right'>
-                        {" "}
                         Have an account? <span className='underline'>Login</span>
                     </Link>
                 </form>

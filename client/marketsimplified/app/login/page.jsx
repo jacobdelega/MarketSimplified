@@ -1,33 +1,35 @@
 "use client";
 import { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { FcGoogle } from "react-icons/fc";
+
+import { loginAction, providerSignIn } from "@/app/actions/index";
 
 const Login = () => {
-    // Defining the state variables that we gather from the form on the CLIENT side
-    const [error, setError] = useState("");
-    const [success, setSuccess] = useState("");
-
     const router = useRouter();
-    const { register, handleSubmit } = useForm();
 
-    // Function to handle the form submission
-    const onSubmit = async (data) => {
-        try {
-            const requestOptions = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            };
+    // Function to handle the form submission using Server Actions
+    const handleSubmit = async (formData) => {
+        const action = formData.get("action");
 
-            const response = await fetch(['/api/login'], requestOptions)
-            const jsonData = await response.json();
+        let result;
 
-        } catch (err) {
-            setError("Error logging in");
+        if (action === "credentials") {
+            result = await loginAction(formData);
+
+            if (result.error) {
+                toast.error("Invalid login credentials");
+            } else {
+                toast.success("Login successful");
+
+                setTimeout(() => {
+                    router.push("/dashboard");
+                }, 2000);
+            }
+        } else {
+            await providerSignIn(formData);
         }
     };
 
@@ -37,22 +39,44 @@ const Login = () => {
                 <h1 className='my-4 text-xl font-bold'>Enter the details</h1>
 
                 <form
-                    onSubmit={handleSubmit(onSubmit)}
+                    action={handleSubmit}
                     className='flex flex-col gap-3'>
                     <input
-                        {...register("email")}
-                        required
+                        name='email'
+                        type='email'
                         placeholder='foo@gmail.com'
                     />
-                    <input {...register("password")} required placeholder='foo'/>
+                    <input
+                        name='password'
+                        type='password'
+                        placeholder='foo'
+                    />
                     <button
                         type='submit'
+                        name='action'
+                        value='credentials'
                         className='px-6 py-2 font-bold text-white bg-blue-600 cursor-pointer'>
                         Login
                     </button>
 
-                    {error && <div className='px-3 py-1 mt-2 text-sm text-white bg-red-500 rounded-md w-fit'>{error}</div>}
-                    {success && <div className='px-3 py-1 mt-2 text-sm text-white bg-green-500 rounded-md w-fit'>{success}</div>}
+                    {/* Spacer */}
+                    <div className='flex gap-2 '>
+                        <hr className='w-2/3 my-3' />
+                        <p className='font-light text-gray-500'> or </p>
+                        <hr className='w-2/3 my-3' />
+                    </div>
+
+                    {/* Google Sign in */}
+                    <div className='flex justify-center'>
+                        <button
+                            type='submit'
+                            name='action'
+                            value='google'
+                            className='flex gap-4 cursor-pointer'>
+                            <FcGoogle size={30} />
+                            <p className='mt-1'>Sign in with Google</p>
+                        </button>
+                    </div>
 
                     <Link
                         href='/register'

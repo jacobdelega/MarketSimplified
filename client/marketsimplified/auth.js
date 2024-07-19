@@ -5,7 +5,6 @@ import Credentials from "next-auth/providers/credentials";
 
 import { getUserFromEmail } from "@/queries/users";
 import clientPromise from "./lib/db";
-import connectDB from "./lib/dbConnection";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 
 const bcrypt = require("bcrypt");
@@ -85,7 +84,6 @@ export const {
                 try {
                     // Lets get current user data
                     const user = await getUserFromEmail(credentials.email);
-
                     if (!user) {
                         throw new Error("User not found with that email");
                     }

@@ -1,4 +1,5 @@
 import User from "@/models/users";
+import connectDB from "@/lib/dbConnection";
 // Create user
 export async function createUser(userData) {
     if (!userData) {
@@ -6,6 +7,7 @@ export async function createUser(userData) {
     }
 
     try {
+        await connectDB();
         const activeUser = await getUserFromEmail(userData.email);
 
         if (!activeUser) {
@@ -23,6 +25,7 @@ export async function getUserFromDb(email, hashedPassword) {
         throw new Error("Email and password are required");
     }
 
+
     const user = User.findOne({
         email,
         password: hashedPassword,
@@ -35,7 +38,8 @@ export async function getUserFromEmail(email) {
     if (!email) {
         throw new Error("Email is required");
     }
-
+    
+    await connectDB();
     const foundUser = await User.findOne({
         email,
     });

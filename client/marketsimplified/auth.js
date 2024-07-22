@@ -6,6 +6,7 @@ import Credentials from "next-auth/providers/credentials";
 import { getUserFromEmail } from "@/queries/users";
 import clientPromise from "./lib/db";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
+import { createUser } from "@/queries/users";
 
 const bcrypt = require("bcrypt");
 
@@ -24,12 +25,33 @@ export const {
         signOut: "/",
     },
     callbacks: {
+        // TODO: Setup where during sign with google, we check if user exists in db. If not, we create a new user and send them to the onboarding page
+        // TODO: Setup where during sign with email, we check if user exists in db. If not, we create a new user and send them to the onboarding page
+
         async signIn({ user, account }) {
             // User provides user specific data
             // account provides provider specific data
             if (account?.provider === "credentials") {
                 return true;
             } else if (account?.provider === "google") {
+                // Check if user exists in the DB
+                const userExists = await getUserFromEmail(user.email);
+
+                if (!userExists) {
+                    // Create a new user with the USER data from google
+                    // Redirect to onboarding once done
+                    console.log("user does not exist so lets create");
+
+                    // Lets create a new user
+                    await createUser({
+                        name: user.name,
+                        email: user.email,
+                        provider: account.provider,
+                    });
+
+                    // Redirect to onboarding
+                    return '/onboarding?email=' + user.email+'&account='+account.provider;
+                }
                 return true;
             }
         },
@@ -44,7 +66,6 @@ export const {
         async session({ session, token, user }) {
             // console.log("session callback is being called", session, token, user);
             if (token) {
-
                 session.user.id = token.id;
             }
 

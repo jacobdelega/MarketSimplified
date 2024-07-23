@@ -1,5 +1,4 @@
 import { Inter } from "next/font/google";
-import Navbar from "../components/Navbar/NavBar";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "next-auth/react";
@@ -16,7 +15,6 @@ export default function RootLayout({ children }) {
         <html lang='en'>
             <body className={inter.className}>
                 <SessionProvider>
-                    <Navbar />
                     {children}
                     <Toaster />
                 </SessionProvider>

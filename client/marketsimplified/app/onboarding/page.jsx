@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { Suspense } from "react";
 
 import { AnimatedForm } from "@/components/AnimatedForm/AnimatedForm";
 
@@ -16,7 +17,11 @@ const onBoarding = () => {
     // if company, need companyName, companyDescription
     // if influencer, need bio, niche
 
-    return <AnimatedForm />;
+    return (
+        <Suspense>
+            <AnimatedForm />
+        </Suspense>
+    );
 };
 
 export default onBoarding;

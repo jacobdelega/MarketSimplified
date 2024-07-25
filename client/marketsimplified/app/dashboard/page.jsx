@@ -18,14 +18,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { auth } from "@/auth";
 import NavBar from "@/components/Navbar/NavBar";
+import LogoutButton from "@/components/LogoutButton/LogoutButton";
 
 export default async function Dashboard() {
     const userData = await auth();
+    // If user is not logged in, redirect to login page
+    if (!userData) {
+        redirect("/login");
+        return;
+    }
+
     const user_name = userData?.user?.name;
 
     return (
         <>
-            <NavBar />
             <div className='flex min-h-screen w-full flex-col bg-muted/40'>
                 <aside className='fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-background sm:flex'>
                     <nav className='flex flex-col items-center gap-4 px-2 sm:py-5'>
@@ -221,7 +227,10 @@ export default async function Dashboard() {
                                 <DropdownMenuItem>Settings</DropdownMenuItem>
                                 <DropdownMenuItem>Support</DropdownMenuItem>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>Logout</DropdownMenuItem>
+                                {/* Make Server-Side Logout */}
+                                <DropdownMenuItem>
+                                    <LogoutButton session={userData} />
+                                </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </header>

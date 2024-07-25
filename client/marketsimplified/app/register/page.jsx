@@ -33,8 +33,8 @@ const Register = () => {
 
                 // Timer for redirect to prompt toast
                 setTimeout(() => {
-                    router.push("/login");
-                }, 2000);
+                    router.push("/onboarding?email=" + result.user.email + "&account=" + result.user.accountProvider);
+                }, 1000);
             } else {
                 toast.error(result.message);
             }

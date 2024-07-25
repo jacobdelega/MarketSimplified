@@ -1,21 +1,14 @@
-import NextAuth from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
-import GitHubProvider from "next-auth/providers/github";
-import Credentials from "next-auth/providers/credentials";
-
 import { getUserFromEmail } from "@/queries/users";
 import clientPromise from "./lib/db";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { createUser } from "@/queries/users";
-
+import GoogleProvider from "next-auth/providers/google";
+import Credentials from "next-auth/providers/credentials";
+import { NextAuthConfig } from "next-auth";
+import { redirect } from "next/navigation";
 const bcrypt = require("bcrypt");
 
-export const {
-    handlers: { GET, POST },
-    auth,
-    signIn,
-    signOut,
-} = NextAuth({
+const authConfig = {
     adapter: MongoDBAdapter(clientPromise),
     session: {
         strategy: "jwt",
@@ -25,10 +18,10 @@ export const {
         signOut: "/",
     },
     callbacks: {
-        // TODO: Setup where during sign with google, we check if user exists in db. If not, we create a new user and send them to the onboarding page
-        // TODO: Setup where during sign with email, we check if user exists in db. If not, we create a new user and send them to the onboarding page
-
         async signIn({ user, account }) {
+            // console.log("User callback: ", user);
+            // console.log("account callback: ", account);
+
             // User provides user specific data
             // account provides provider specific data
             if (account?.provider === "credentials") {
@@ -36,11 +29,9 @@ export const {
             } else if (account?.provider === "google") {
                 // Check if user exists in the DB
                 const userExists = await getUserFromEmail(user.email);
-
                 if (!userExists) {
                     // Create a new user with the USER data from google
                     // Redirect to onboarding once done
-                    console.log("user does not exist so lets create");
 
                     // Lets create a new user
                     await createUser({
@@ -50,8 +41,9 @@ export const {
                     });
 
                     // Redirect to onboarding
-                    return '/onboarding?email=' + user.email+'&account='+account.provider;
+                    return "/onboarding?email=" + user.email + "&account=" + account.provider;
                 }
+
                 return true;
             }
         },
@@ -95,6 +87,7 @@ export const {
                     response_type: "code",
                 },
             },
+            allowDangerousEmailAccountLinking: true,
         }),
         Credentials({
             credentials: {
@@ -126,4 +119,6 @@ export const {
             },
         }),
     ],
-});
+} satisfies NextAuthConfig;
+
+export default authConfig;

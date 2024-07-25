@@ -1,6 +1,7 @@
 "use server";
-import { saltAndHashPassword } from "@/utils/hashpw";
 import { signIn } from "@/auth";
+import { updateProfile } from "@/queries/users";
+
 export async function loginAction(formData) {
     // Verify action
     const action = formData.get("action");
@@ -28,4 +29,18 @@ export async function providerSignIn(formData) {
     // For OAuth providers, signIn will redirect the user,
     // so we dont have a return object
     await signIn(action, { redirectTo: "/dashboard" });
+}
+
+export async function completeProfile(formData) {
+
+    // Update user data
+    const result = await updateProfile(formData);
+
+    // Check result
+    if (result.error) {
+        return { error: result.error };
+    } else if (result.success) {
+        return { success: result.success };
+    }
+    
 }

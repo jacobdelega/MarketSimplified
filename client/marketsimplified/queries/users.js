@@ -25,7 +25,6 @@ export async function getUserFromDb(email, hashedPassword) {
         throw new Error("Email and password are required");
     }
 
-
     const user = User.findOne({
         email,
         password: hashedPassword,
@@ -38,11 +37,51 @@ export async function getUserFromEmail(email) {
     if (!email) {
         throw new Error("Email is required");
     }
-    
+
     await connectDB();
     const foundUser = await User.findOne({
         email,
     });
 
     return foundUser;
+}
+
+// This fucntion is called only to finish onboarding
+// Update user and set isProfileComplete to true
+export async function updateProfile(userData) {
+    if (!userData) {
+        throw new Error("User data is required");
+    }
+
+    await connectDB();
+
+    let { email, userType, name, companyDescription, bio, niche } = userData;
+
+    let updatedData = {
+        email,
+        userType,
+        name,
+        isProfileComplete: true,
+    };
+
+    if (userType === "company") {
+        updatedData.company = {
+            companyName: name,
+            companyDescription,
+        };
+    } else if (userType === "influencer") {
+        updatedData.influencer = {
+            bio,
+            niche,
+        };
+    }
+
+    const updatedUser = await User.findOneAndUpdate({ email }, { $set: updatedData }, { new: true, runValidators: true });
+
+    if (!updatedUser) {
+        throw new Error("User not found");
+        return { error: "User was no updated"}
+    }
+
+    return { success : "User updated successfully" };
 }

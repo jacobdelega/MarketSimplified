@@ -3,10 +3,12 @@ import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import AutoHeight from "react-auto-height";
 import { FaArrowLeft } from "react-icons/fa";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 
 // ShadCN
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { completeProfile } from "@/app/actions";
+import { toast } from "sonner";
 
 const niches = ["fitness", "travel", "fashion", "cooking", "beauty", "pets", "lifestyle", "education"];
 
@@ -14,6 +16,7 @@ const AnimatedForm = () => {
     const [section, setSection] = useState(0);
     const [isBack, setIsBack] = useState(false);
     const [formData, setFormData] = useState({});
+    const router = useRouter();
 
     // Grab searchParams from the URL
     const searchParams = useSearchParams();
@@ -84,14 +87,19 @@ const AnimatedForm = () => {
         changeSection(section + 1, false);
     };
 
-    const handleCompleteButton = () => {
-        setFormData((prev) => ({
-            ...prev,
-            isProfileComplete: true,
-        }));
+    const handleCompleteButton = async () => {
+        // Trigger server action
+        const result = await completeProfile(formData);
+
+        // Check result
+        if (result.error) {
+            toast.error(result.error);
+        } else if (result.success) {
+            toast.success(result.success);
+            router.push("/dashboard");
+        }
     };
 
-    console.log(formData);
     return (
         <div className='w-full h-screen flex flex-col gap-4 space-y-5 sm:space-y-0 items-center justify-center'>
             <div className='w-full max-w-md flex items-center justify-around space-x-3'>
@@ -118,7 +126,6 @@ const AnimatedForm = () => {
                         <FaArrowLeft /> Back
                     </button>
                 )}
-
                 {section === 0 && (
                     <motion.div
                         style={isBack ? { x: -200, opacity: 0 } : { x: 200, opacity: 0 }}

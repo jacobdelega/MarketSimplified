@@ -36,10 +36,16 @@ export async function POST(req) {
             password: hashedPassword,
         };
 
+        // Format response user object
+        const user = {
+            email,
+            acountProvider: 'credentials',
+        };
+
         // Let create the user
         await createUser(userData);
 
-        return Response.json({ message: "Account created successfully!" }, { status: 201 });
+        return Response.json({ message: "Account created successfully!", user }, { status: 201 });
     } catch (error) {
         console.error('Register error:', error);
         return Response.json({ message: "An unexpected error occured" }, { status: 500 });

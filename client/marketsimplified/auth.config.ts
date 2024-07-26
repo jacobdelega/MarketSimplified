@@ -87,7 +87,7 @@ const authConfig = {
                     response_type: "code",
                 },
             },
-            allowDangerousEmailAccountLinking: true,
+            allowDangerousEmailAccountLinking: true, // TODO : Remove this in production
         }),
         Credentials({
             credentials: {

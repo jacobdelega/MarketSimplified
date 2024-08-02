@@ -1,6 +1,6 @@
 "use server";
 import { signIn } from "@/auth";
-import { updateProfile } from "@/queries/users";
+import { updateProfile } from "@/queries/User/user_queries";
 
 export async function loginAction(formData) {
     // Verify action

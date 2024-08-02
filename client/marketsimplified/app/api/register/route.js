@@ -1,5 +1,5 @@
 import connectDB from "@/lib/dbConnection";
-import { createUser, getUserFromEmail } from "@/queries/users";
+import { createUser, getUserFromEmail } from "@/queries/User/user_queries";
 import { saltAndHashPassword } from "@/utils/hashpw";
 export async function POST(req) {
     try {

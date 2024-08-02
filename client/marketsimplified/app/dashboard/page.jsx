@@ -17,6 +17,9 @@ import { auth } from "@/auth";
 import SideNav from "@/components/SideNav/SideNav";
 import DashboardHeader from "@/components/DashboardHeader/DashboardHeader";
 
+// DB Queries
+import { getUserFromID } from "@/queries/User/user_queries";
+
 export default async function Dashboard() {
     const userData = await auth();
     // If user is not logged in, redirect to login page

@@ -1,7 +1,7 @@
-import { getUserFromEmail } from "@/queries/users";
+import { getUserFromEmail } from "@/queries/User/user_queries";
 import clientPromise from "./lib/db";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
-import { createUser } from "@/queries/users";
+import { createUser } from "@/queries/User/user_queries";
 import GoogleProvider from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { NextAuthConfig } from "next-auth";
@@ -25,6 +25,22 @@ const authConfig = {
             // User provides user specific data
             // account provides provider specific data
             if (account?.provider === "credentials") {
+                const userExists = await getUserFromEmail(user.email);
+                if (!userExists) {
+                    // Create a new user with the USER data from google
+                    // Redirect to onboarding once done
+
+                    // Lets create a new user
+                    await createUser({
+                        name: user.name,
+                        email: user.email,
+                        provider: account.provider,
+                    });
+
+                    // Redirect to onboarding
+                    return "/onboarding?email=" + user.email + "&account=" + account.provider;
+                }
+
                 return true;
             } else if (account?.provider === "google") {
                 // Check if user exists in the DB

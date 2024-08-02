@@ -80,8 +80,59 @@ export async function updateProfile(userData) {
 
     if (!updatedUser) {
         throw new Error("User not found");
-        return { error: "User was no updated"}
+        return { error: "User was no updated" };
     }
 
-    return { success : "User updated successfully" };
+    return { success: "User updated successfully" };
+}
+
+export async function getUserFromID(userId) {
+    if (!userId) {
+        throw new Error("User ID is not found");
+    }
+
+    await connectDB();
+    const user = await User.findById(userId);
+
+    return user;
+}
+
+export async function updateInfluencer(user_id, userData) {
+    if (!user_id || !userData) {
+        throw new Error("User ID and data are required");
+    }
+
+    const formatedData = {
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        influencer: {
+            bio: userData.bio,
+        },
+    };
+
+    await connectDB();
+    const updatedUser = await User.findByIdAndUpdate(user_id, formatedData, { new: true, runValidators: true });
+
+    return updatedUser;
+}
+
+export async function updateCompany(user_id, userData) {
+    if (!user_id || !userData) {
+        throw new Error("User ID and data are required");
+    }
+
+    const formatedData = {
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        company: {
+            companyDescription: userData.companyDesc,
+        },
+    };
+
+    await connectDB();
+    const updatedUser = await User.findByIdAndUpdate(user_id, formatedData, { new: true, runValidators: true });
+
+    return updatedUser;
 }

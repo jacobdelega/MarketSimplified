@@ -1,14 +1,12 @@
-
-
 // Select the database to use.
-use('MarketSimplified');
+use("MarketSimplified");
 
 // Delete user with email jacobdelega@gmail.com
 // db.users.deleteOne({ email: 'jacobdelega@gmail.com'})
 // db.users.deleteOne({ email: 'jacob@gmail.com'})
-
+// db.users.deleteOne({ email: "company@gmail.com" });
 
 // lets get all the users in users collection
 var users = db.users.find();
 
-users
+users;

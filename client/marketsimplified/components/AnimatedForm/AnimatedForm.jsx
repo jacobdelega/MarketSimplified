@@ -13,6 +13,9 @@ import { toast } from "sonner";
 const niches = ["fitness", "travel", "fashion", "cooking", "beauty", "pets", "lifestyle", "education"];
 
 const AnimatedForm = () => {
+    // TODO: VERIFY FORM ENTRYS WITH VALIDATION AND PROVIDE VALID RESPONSES IF NOT VALID.
+    // TODO: EXAMPLE VERIFY PHONE NUMBER IS VALID AND IN CORRECT FORMAT BEFORE TRIGGERING SERVER ACTION
+
     const [section, setSection] = useState(0);
     const [isBack, setIsBack] = useState(false);
     const [formData, setFormData] = useState({});
@@ -23,7 +26,8 @@ const AnimatedForm = () => {
     const email = searchParams.get("email");
     const accountProvider = searchParams.get("account");
 
-    // Set the email and provider
+    // Set the initial form data
+    // This data comes from the Register page
     useEffect(() => {
         setFormData((prev) => ({
             ...prev,
@@ -51,6 +55,7 @@ const AnimatedForm = () => {
                     delete updatedFormData.bio;
                     delete updatedFormData.companyDescription;
                     delete updatedFormData.isProfileComplete;
+                    delete updatedFormData.phone_number;
                 } else if (i === 1) {
                     // If going back to section 1, clear contentNiche or companyName
                     if (prev.userType === "influencer") {
@@ -103,7 +108,7 @@ const AnimatedForm = () => {
     return (
         <div className='w-full h-screen flex flex-col gap-4 space-y-5 sm:space-y-0 items-center justify-center'>
             <div className='w-full max-w-md flex items-center justify-around space-x-3'>
-                {[0, 1, 2].map((i) => (
+                {[0, 1, 2, 3].map((i) => (
                     <div
                         key={i}
                         className={`${
@@ -264,6 +269,52 @@ const AnimatedForm = () => {
                         style={isBack ? { x: -200, opacity: 0 } : { x: 200, opacity: 0 }}
                         animate={isBack ? { translateX: 200, opacity: 1 } : { translateX: -200, opacity: 1 }}
                         className='my-16'>
+                        {formData.userType === "influencer" ? (
+                            <>
+                                <div className='flex flex-col h-40 justify-center items-center'>
+                                    <p className='mb-4'>Enter Mobile Phone</p>
+                                    <input
+                                        onChange={handleInputChange}
+                                        type='text'
+                                        name='phone_number'
+                                        placeholder='123 425 2304'
+                                        className='w-52 h-10 bg-gray-100 dark:bg-gray-900 rounded-lg px-3'
+                                    />
+                                </div>
+
+                                <button
+                                    onClick={() => handleNextButton()}
+                                    className='w-32 h-10 bg-black text-white rounded-lg text-xl mt-4'>
+                                    Next
+                                </button>
+                            </>
+                        ) : (
+                            // Else will be company
+                            <>
+                                <div className='flex flex-col h-40 justify-center items-center'>
+                                    <p className='mb-4'>Enter Company Number</p>
+                                    <input
+                                        onChange={handleInputChange}
+                                        type='text'
+                                        name='phone_number'
+                                        placeholder='123 425 2304'
+                                        className='w-52 h-10 bg-gray-100 dark:bg-gray-900 rounded-lg px-3'
+                                    />
+                                </div>
+                                <button
+                                    onClick={() => handleNextButton()}
+                                    className='w-32 h-10 bg-black text-white rounded-lg text-xl mt-4'>
+                                    Next
+                                </button>
+                            </>
+                        )}
+                    </motion.div>
+                )}
+                {section === 4 && (
+                    <motion.div
+                        style={isBack ? { x: -200, opacity: 0 } : { x: 200, opacity: 0 }}
+                        animate={isBack ? { translateX: 200, opacity: 1 } : { translateX: -200, opacity: 1 }}
+                        className='my-16'>
                         <div className='h-40 flex flex-col items-center'>
                             <p>Verify all information is correct:</p>
                             {formData.userType === "influencer" ? (
@@ -271,12 +322,14 @@ const AnimatedForm = () => {
                                     <p> Account Type: {formData.userType}</p>
                                     <p> Account Niche: {formData.niche}</p>
                                     <p> Account Bio: {formData.bio}</p>
+                                    <p> Account Phone Number: {formData.phone_number}</p>
                                 </>
                             ) : (
                                 <>
                                     <p> Account Type: {formData.userType}</p>
                                     <p> Company Name: {formData.name}</p>
                                     <p> Company Description: {formData.companyDescription}</p>
+                                    <p> Company Phone Number: {formData.phone_number}</p>
                                 </>
                             )}
                         </div>

@@ -55,13 +55,14 @@ export async function updateProfile(userData) {
 
     await connectDB();
 
-    let { email, userType, name, companyDescription, bio, niche } = userData;
+    let { email, userType, name, companyDescription, bio, niche, phone_number } = userData;
 
     let updatedData = {
         email,
         userType,
         name,
         isProfileComplete: true,
+        phoneNumber: phone_number
     };
 
     if (userType === "company") {
@@ -101,11 +102,12 @@ export async function updateInfluencer(user_id, userData) {
     if (!user_id || !userData) {
         throw new Error("User ID and data are required");
     }
+    console.log(userData);
 
     const formatedData = {
         name: userData.name,
         email: userData.email,
-        phone: userData.phone,
+        phoneNumber: userData.phone_number,
         influencer: {
             bio: userData.bio,
         },
@@ -125,7 +127,7 @@ export async function updateCompany(user_id, userData) {
     const formatedData = {
         name: userData.name,
         email: userData.email,
-        phone: userData.phone,
+        phoneNumber: userData.phone_number,
         company: {
             companyDescription: userData.companyDesc,
         },

@@ -3,7 +3,6 @@ import { updateInfluencer, updateCompany } from "@/queries/User/user_queries";
 
 export async function PUT(req) {
     const user_data = await req.json();
-
     const user_session = await auth();
     if (!user_session) {
         return Response.json({ message: "Not authenticated" });

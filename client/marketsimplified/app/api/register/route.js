@@ -29,18 +29,21 @@ export async function POST(req) {
         // hash password for formated user data
         const hashedPassword = await saltAndHashPassword(password);
 
-        // Formated user data
+        // Formated user data to be saved in DB
         const userData = {
             name,
             email,
             password: hashedPassword,
         };
 
-        // Format response user object
+        // Format response user object to send back to client
         const user = {
             email,
-            acountProvider: 'credentials',
+            accountProvider: 'credentials',
         };
+
+        // console.log('User data:', userData);
+        // console.log("user:", user);
 
         // Let create the user
         await createUser(userData);

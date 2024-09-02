@@ -26,6 +26,7 @@ export default async function page() {
         userType: user_data?.userType,
         bio: user_data?.influencer?.bio || "",
         description: user_data?.company?.companyDescription || "",
+        phone_number: user_data?.phoneNumber,
     };
 
     return (

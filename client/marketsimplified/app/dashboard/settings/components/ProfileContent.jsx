@@ -8,7 +8,7 @@ const ProfileContent = ({ initialUserData }) => {
     const clean_user_data = {
         name: user_data?.name || "",
         email: user_data?.email || "",
-        phone: "(856) 873-2271",
+        phone_number: user_data?.phone_number,
         bio: user_data?.bio || "",
         companyDesc: user_data?.description || "",
         accountType: user_data?.userType || "",

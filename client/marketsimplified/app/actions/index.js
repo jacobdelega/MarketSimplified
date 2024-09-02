@@ -32,7 +32,7 @@ export async function providerSignIn(formData) {
 }
 
 export async function completeProfile(formData) {
-
+    
     // Update user data
     const result = await updateProfile(formData);
 

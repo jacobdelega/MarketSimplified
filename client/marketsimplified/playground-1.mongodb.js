@@ -7,6 +7,14 @@ use("MarketSimplified");
 // db.users.deleteOne({ email: "company@gmail.com" });
 
 // lets get all the users in users collection
-var users = db.users.find();
+// Find user where email is jacob@gmail.com
+
+var users = db.users.find({});
+
+// Delete one entry with emailk
+// db.users.deleteOne({ email: "test@gmail.com" });
+// db.users.deleteOne({ email: "test2@gmail.com" });
+// db.users.deleteOne({ email: "test3@gmail.com" });
+
 
 users;

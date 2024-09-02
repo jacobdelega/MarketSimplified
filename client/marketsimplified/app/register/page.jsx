@@ -26,6 +26,7 @@ const Register = () => {
 
             //  Grab response from backend
             const result = await response.json();
+            console.log("Register result:", result); // should have accountProvider and email
 
             // Check if user was created
             if (response.ok) {

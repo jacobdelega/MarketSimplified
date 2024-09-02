@@ -16,7 +16,6 @@ const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
             });
 
             const res = await response.json();
-            console.log(res);
         } catch (error) {}
     };
 
@@ -25,7 +24,7 @@ const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
     const [editedData, setEditedData] = useState({
         name: user_data?.name,
         email: user_data?.email,
-        phone: "(856) 873-2271",
+        phone_number: user_data?.phone_number,
         companyDesc: user_data?.companyDesc,
         userType: user_data?.accountType,
     });
@@ -43,7 +42,7 @@ const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
         setEditedData({
             name: user_data?.name,
             email: user_data?.email,
-            phone: "(856) 873-2271",
+            phone_number: user_data?.phone_number,
             companyDesc: user_data?.companyDesc,
         });
         setIsEditing(false);
@@ -106,11 +105,11 @@ const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
                     <h1 className='text-gray-500 font-normal text-md mb-1'>Phone</h1>
                     {isEditing ? (
                         <Input
-                            value={editedData.phone}
-                            onChange={handleChange("phone")}
+                            value={editedData.phone_number}
+                            onChange={handleChange("phone_number")}
                         />
                     ) : (
-                        <p className='text-gray-500 font-normal text-sm'>{user_data?.phone || "(856) 873-2271"}</p>
+                        <p className='text-gray-500 font-normal text-sm'>{user_data?.phone_number || "No number found"}</p>
                     )}
                 </div>
                 <div>

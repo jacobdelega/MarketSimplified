@@ -18,14 +18,14 @@ function page() {
 
     return (
         <div className='w-full'>
-            <div className='flex justify-center h-screen'>
+            {/* <div className='flex justify-center h-screen'>
                 <Link
                     href='https://api.instagram.com/oauth/authorize?client_id=1965805220557878&redirect_uri=https://market-simplified.vercel.app/&scope=user_profile,user_media&response_type=code'
                     className=' flex justify-center items-center'>
                     Press
                 </Link>
                 <InstagramAuthButton />
-            </div>
+            </div> */}
         </div>
     );
 }

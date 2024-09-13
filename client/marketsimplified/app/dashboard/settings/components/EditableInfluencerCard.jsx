@@ -23,7 +23,7 @@ const EditableInfluencerCard = ({ user_data }) => {
     const [editedData, setEditedData] = useState({
         name: user_data?.name,
         email: user_data?.email,
-        phone: "(856) 873-2271",
+        phone: user_data?.phone_number,
         bio: user_data?.bio,
         userType: user_data?.accountType,
     });
@@ -41,7 +41,7 @@ const EditableInfluencerCard = ({ user_data }) => {
         setEditedData({
             name: user_data?.name,
             email: user_data?.email,
-            phone: "(856) 873-2271",
+            phone: user_data?.phone_number,
             bio: user_data?.bio,
         });
         setIsEditing(false);
@@ -108,7 +108,9 @@ const EditableInfluencerCard = ({ user_data }) => {
                             onChange={handleChange("phone")}
                         />
                     ) : (
-                        <p className='text-gray-500 font-normal text-sm'>{user_data?.phone || "(856) 873-2271"}</p>
+                        <p className='text-gray-500 font-normal text-sm'>
+                            ({editedData.phone.slice(0, 3)})-{editedData.phone.slice(3, 6)}-{editedData.phone.slice(6)}
+                        </p>
                     )}
                 </div>
                 <div>

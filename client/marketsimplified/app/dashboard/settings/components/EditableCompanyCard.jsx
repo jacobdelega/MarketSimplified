@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Pencil } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 
-const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
+const EditableCompanyCard = ({ user_data }) => {
     const handleUpdateCompany = async (data) => {
         try {
             // Send the data to the server
@@ -109,7 +109,9 @@ const EditableCompanyCard = ({ user_data, onUpdateUser }) => {
                             onChange={handleChange("phone_number")}
                         />
                     ) : (
-                        <p className='text-gray-500 font-normal text-sm'>{user_data?.phone_number || "No number found"}</p>
+                        <p className='text-gray-500 font-normal text-sm'>
+                            ({editedData.phone_number.slice(0, 3)})-{editedData.phone_number.slice(3, 6)}-{editedData.phone_number.slice(6)}
+                        </p>
                     )}
                 </div>
                 <div>

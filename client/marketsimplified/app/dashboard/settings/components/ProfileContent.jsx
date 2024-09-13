@@ -2,12 +2,14 @@ import Image from "next/image";
 import { Pencil } from "lucide-react";
 import EditableInfluencerCard from "./EditableInfluencerCard";
 import EditableCompanyCard from "./EditableCompanyCard";
+import EditableProfileContainer from "./EditableProfileContainer";
 
 const ProfileContent = ({ initialUserData }) => {
     const user_data = initialUserData;
     const clean_user_data = {
         name: user_data?.name || "",
         email: user_data?.email || "",
+        profileImageURL: user_data?.profileImageURL || "",
         phone_number: user_data?.phone_number,
         bio: user_data?.bio || "",
         companyDesc: user_data?.description || "",
@@ -19,26 +21,7 @@ const ProfileContent = ({ initialUserData }) => {
             {user_data?.userType === "influencer" ? <h1 className='text-xl font-semibold mb-8'>My Profile</h1> : <h1 className='text-xl font-semibold mb-8'>Company Profile</h1>}
 
             {/* Profile Image Container */}
-            <div className='border-opacity-70 border border-slate-200 shadow-sm rounded-lg flex p-4 justify-between mb-8'>
-                <div className='flex'>
-                    <Image
-                        src='/avatar.png'
-                        width={75}
-                        height={75}
-                        className='rounded-full'
-                    />
-
-                    <div className='ml-4 flex flex-col justify-center'>
-                        <h1 className='text-xl font-semibold'>{user_data?.name.charAt(0).toUpperCase() + user_data?.name.slice(1)}</h1>
-                        <p className='text-gray-500'> {user_data?.userType.charAt(0).toUpperCase() + user_data?.userType.slice(1)}</p>
-                    </div>
-                </div>
-
-                <button className='flex justify-center align-middle items-center h-[30px] border border-gray-400 p-2 rounded-md text-gray-500'>
-                    <Pencil className='h-4' />
-                    Edit
-                </button>
-            </div>
+            <EditableProfileContainer user_data={clean_user_data} />
 
             {/* Profile Container */}
             {user_data?.userType === "influencer" ? <EditableInfluencerCard user_data={clean_user_data} /> : <EditableCompanyCard user_data={clean_user_data} />}

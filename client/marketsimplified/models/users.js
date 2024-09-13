@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema(
         name: { type: String },
         email: { type: String, required: true, unique: true },
         password: { type: String },
+        profileImageURL: { type: String, default: "/avatar.png" },
         userType: { type: String, enum: ["company", "influencer"] },
         createdAt: { type: Date, default: Date.now },
         updatedAt: { type: Date, default: Date.now },
@@ -29,7 +30,6 @@ const userSchema = new mongoose.Schema(
             companyName: String,
             companyDescription: String,
         },
-
         influencer: {
             bio: String,
             niche: String,

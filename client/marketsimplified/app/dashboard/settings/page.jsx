@@ -17,13 +17,14 @@ export default async function page() {
         redirect("/login");
         return;
     }
-
     // Get user from ID
     const user_data = await getUserFromID(user_session?.user?.id);
+
     const initialData = {
         name: user_data?.name,
         email: user_data?.email,
         userType: user_data?.userType,
+        profileImageURL: user_data?.profileImageURL,
         bio: user_data?.influencer?.bio || "",
         description: user_data?.company?.companyDescription || "",
         phone_number: user_data?.phoneNumber,

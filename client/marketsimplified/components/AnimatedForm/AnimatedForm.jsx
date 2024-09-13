@@ -19,6 +19,7 @@ const AnimatedForm = () => {
     const [section, setSection] = useState(0);
     const [isBack, setIsBack] = useState(false);
     const [formData, setFormData] = useState({});
+    const [phoneNumber, setPhoneNumber] = useState("");
     const router = useRouter();
 
     // Grab searchParams from the URL
@@ -82,14 +83,34 @@ const AnimatedForm = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
+
+        // Verify phone number is valid
+        if (name === "phone_number") {
+            const phoneNumber = value.replace(/[^\d]/g, ""); // Remove all non-numeric characters
+            setPhoneNumber(phoneNumber);
+        }
+
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
 
+    const validatePhoneNumber = (phoneNumber) => {
+        const phoneRegex = /^\d{10}$/; // 10 digits
+        return phoneRegex.test(phoneNumber);
+    };
+
     const handleNextButton = () => {
-        changeSection(section + 1, false);
+        if (formData.phone_number) {
+            if (validatePhoneNumber(formData.phone_number)) {
+                changeSection(section + 1, false);
+            } else {
+                toast.error("Enter a valid 10-digit phone number");
+            }
+        } else {
+            changeSection(section + 1, false);
+        }
     };
 
     const handleCompleteButton = async () => {
@@ -277,6 +298,7 @@ const AnimatedForm = () => {
                                         onChange={handleInputChange}
                                         type='text'
                                         name='phone_number'
+                                        value={phoneNumber}
                                         placeholder='123 425 2304'
                                         className='w-52 h-10 bg-gray-100 dark:bg-gray-900 rounded-lg px-3'
                                     />
@@ -297,6 +319,7 @@ const AnimatedForm = () => {
                                         onChange={handleInputChange}
                                         type='text'
                                         name='phone_number'
+                                        value={phoneNumber}
                                         placeholder='123 425 2304'
                                         className='w-52 h-10 bg-gray-100 dark:bg-gray-900 rounded-lg px-3'
                                     />

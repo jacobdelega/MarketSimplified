@@ -11,10 +11,8 @@ use("MarketSimplified");
 
 var users = db.users.find({});
 
-// Delete one entry with emailk
-// db.users.deleteOne({ email: "test@gmail.com" });
-// db.users.deleteOne({ email: "test2@gmail.com" });
-// db.users.deleteOne({ email: "test3@gmail.com" });
+// Delete all users
+
 
 
 users;

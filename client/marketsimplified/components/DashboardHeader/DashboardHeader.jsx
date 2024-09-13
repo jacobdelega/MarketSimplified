@@ -7,8 +7,13 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from "@/components/ui/breadcrumb";
 import LogoutButton from "@/components/LogoutButton/LogoutButton";
-const DashboardHeader = ({ path }) => {
-    const userData = "test";
+import { auth } from "@/auth";
+import { getUserFromID } from "@/queries/User/user_queries";
+
+const DashboardHeader = async ({ path }) => {
+    const user = await auth();
+    const user_data = await getUserFromID(user?.user?.id);
+
     return (
         <header className='sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6'>
             <Sheet>
@@ -87,13 +92,13 @@ const DashboardHeader = ({ path }) => {
                     <Button
                         variant='outline'
                         size='icon'
-                        className='overflow-hidden rounded-full'>
+                        className='overflow-hidden rounded-full w-[50px] h-[50px]'>
                         <Image
-                            src='/avatar.png'
-                            width={36}
-                            height={36}
+                            src={user_data?.profileImageURL}
+                            width={50}
+                            height={50}
                             alt='Avatar'
-                            className='overflow-hidden rounded-full'
+                            className='rounded-full w-full h-full object-cover'
                         />
                     </Button>
                 </DropdownMenuTrigger>
@@ -107,7 +112,7 @@ const DashboardHeader = ({ path }) => {
                     <DropdownMenuSeparator />
                     {/* Make Server-Side Logout */}
                     <DropdownMenuItem>
-                        <LogoutButton session={userData} />
+                        <LogoutButton session={user_data} />
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

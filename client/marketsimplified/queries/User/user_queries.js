@@ -5,7 +5,6 @@ export async function createUser(userData) {
     if (!userData) {
         throw new Error("User data is required");
     }
-
     try {
         await connectDB();
         const activeUser = await getUserFromEmail(userData.email);
@@ -93,8 +92,8 @@ export async function getUserFromID(userId) {
     }
 
     await connectDB();
-    const user = await User.findById(userId);
 
+    const user = await User.findById(userId);
     return user;
 }
 
@@ -138,3 +137,19 @@ export async function updateCompany(user_id, userData) {
 
     return updatedUser;
 }
+
+// This function is called to update the user's profile image
+export async function updateProfileImg(user_id, profileImageURL) {
+
+    if (!user_id || !profileImageURL) {
+        throw new Error("User ID and profile image URL are required");
+    }
+
+    await connectDB();
+    // user_id to find the user
+    // profileImageURL is the value for the users profileIMG key
+    const updatedUser = await User.findByIdAndUpdate(user_id, { profileImageURL }, { new: true, runValidators: true });
+
+    return updatedUser;
+}
+
